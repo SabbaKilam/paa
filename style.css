@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+}
+
+html{
+  position: fixed; 
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  font-size: calc(calc(0.35vh + 0.35vw) + 10px);
+  tap-highlight-color:  rgba(255, 255, 255, 0);   
+}
+
+body{
+  position: fixed; 
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #eee;/*hsla(210, 65%, 78%, 0.75);*/
+  text-align: center;
+  font-family: sans-serif;
+}
+
+#fanHolder{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#pitLogo{
+  display: inline-block;
+  height: calc(calc(5.75vh + 10px) * 1.5);
+  width: calc(calc(calc(5.75vh + 10px) * 507) / 180); /* 338:180 is the width-height ratio of the PIT tower logo*/
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;  
+}
+#shroud{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all 1s ease;
+  opacity: 1;
+  background-image: -webkit-linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75));
+  background-image: -moz-linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75));
+  background-image: -o-linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75));
+  background-image: linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75));  
+  visibility: visible;
+  overflow: hidden;
+  z-index: 10;  
+} 
+#passwordWall{
+  position: fixed;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75) );  
+  z-index: 10;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#passwordFrame{
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+  background-color: rgba(187,187,187,0.3);
+  color: black;
+  font-family: sans-serif;
+  text-shadow: 0 1px 0 white;
+  box-shadow: 10px 10px 20px gray;
+  height: 25%;
+  width: 80%; 
+}
+
+#passwordHolder{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 0 1px 0 white;
+}
+
+#txtPassword{
+  text-align: center;
+  font-size: 1.25rem;
+  width: 100%;
+}
+
+main {
+  position: fixed;
+  height: 98%;
+  width: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  margin: 0;
+  padding: 0;  
+  font-family: helvetica, arial, sans-serif;
+  box-shadow: 10px 10px 30px gray;
+  border-radius: 0.5rem;
+  background-color: teal;
+  overflow: hidden;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: calc(3% + 10px);/*40px;*/
+  text-align: right;
+  font-size: calc(1vw + 11px);
+  line-height: 0.5;
+  background-color: #ccc;  
+  background-image: url(https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2Flogout.png?1508023974770), url(https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2FSmallHome.png?1508008255153),url(https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2FBlueEnvelope.png?1508006339652);
+  background-repeat: no-repeat;
+  background-position: 15%, 50% ,85%;
+  background-size: contain;
+}
+
+.footerGlassHolder{
+  position: absolute;
+  width: 100%;
+  height: calc(3% + 10px);
+  bottom: 0;
+}
+
+.footerGlass{
+  position: relative;
+  display: inline-block;
+  bottom: 0;
+  width: 32%;
+  height: 100%;/*40px;*/
+  font-size: calc(1vw + 10px);
+  line-height: 0.5;
+  cursor: pointer;
+  margin-left: 0.65%;
+}
+
+.footerGlass:hover{
+  background: linear-gradient(-20deg, hsla(240, 100%, 50%, 0.25), rgba(220,220,220,0.25), hsla(240, 100%, 50%, 0.25));
+}
+
+#footerInfo{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; 
+  text-align: center; 
+  color: black;
+  text-shadow: 0 1px 0 white;  
+}  
+
+
+button{
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+button:hover{
+  color: black;
+  background: white;
+}
+
+ 
+
+#btnHideShroud{
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+  height: 3.2rem;
+  width: 3.2rem;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow:  0 0 15px black;
+  cursor: pointer;
+  line-height: 1.7;
+  letter-spacing: -3.5px;
+  text-shadow: 0 1px 0 lightgray;
+  background: linear-gradient(45deg, lightblue, lightgray);
+}
+
+#messageHolder{
+  position: absolute;
+  height: 90%;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 0.85rem;
+}
+
+#popupHolder{
+  position: fixed;
+  padding: 2rem;
+  width:75%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 0.85rem;
+  box-shadow: 0 0 1.5rem black;
+  background: #ddd;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 1.5rem;
+  text-shadow: 0 1px 0 white;
+  transition: all 0.5s ease;  
+}
+
+#offlineMessage{
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: hsla(0, 100%, 60%, 0.85);
+  text-shadow: 0 1px 0 black;
+  visibility: hidden;
+  font-size: 2rem;
+  font-family: sans-serif;
+  z-index: 3;
+}
+
+#messageText{
+  display: inline-block;
+  color: white;
+  text-shadow: 0 1px 0 black;
+  font-size: 2rem;
+  visibility: visible;
+  opacity: 1;
+  transition: all 2s ease
+}

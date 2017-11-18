@@ -1,0 +1,9 @@
+To reduce server errors,
+edit the php.ini file as follows:
+
+    memory_limit = 256M
+    upload_max_filesize = 50M
+    post_max_size = 50M
+    max_execution_time = 60
+
+Then, reboot the server.

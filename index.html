@@ -1,0 +1,87 @@
+<!doctype html>
+<html id="root">
+  <head>
+    <title>PIT Assessment</title>
+    <meta name="description" content="Abbas' MVC design pattern architecture">
+    <link id="favicon" rel="icon" href="/images/PitLogo.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="prefixfree.js"></script>
+    <script src="L.js"></script>
+    <script src="MVC.js"></script>    
+    <script src="methodsForMODEL.js"></script>
+    <script src="methodsForVIEW.js"></script>
+    <script src="helperMethods.js"></script>
+    <script> window.document.id = 'document' </script>
+  </head>
+  <body id="body">
+    <div id="fanHolder"></div>
+    <header id="header">
+      <!--<img id="pitLogo" src="https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2FPitLogoTowerBlueTransparent.png?1508342789763" alt="PIT Logo">-->
+      <img id="pitLogo" src="images/PitLogoTowerBlueTransparent.png" alt="PIT Logo">
+      
+      <!--| https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2FPitLogoTowerBlueTransparent.png?1508342789763  |-->
+      <!--| https://cdn.glitch.com/c2422900-cc9c-4232-b1cc-97790d178cba%2FPitLogoMobile.png?1507575376646  |-->
+      
+      <!--<div id="subTitle">2016 - 2017 Assessment Cycle</div>-->     
+    </header>    
+    <div id="shroud">
+      <!-- <div id="btnHideShroud">✗&nbsp;</div> -->     
+    </div>
+    
+    <div id="passwordWall">
+      <div id="passwordFrame">
+        <div id="passwordHolder">
+          <span>password:</span><br/>
+          <input id="txtPassword" type="password" placeholder="Type password">
+        </div>
+      </div>
+    </div>
+    <!--<footer id="info">Events are shown here</footer>-->
+    <footer id="info">
+      <span id="footerInfo"></span>
+    </footer>
+    <div class="footerGlassHolder">
+      <div class="footerGlass" title="Logout" id="logoutGlass"></div>
+      <div class="footerGlass" title="Main Page" id="homeGlass"></div>
+      <div class="footerGlass" title="Mail Suggestions" id="emailGlass"></div>      
+    </div>    
+    
+    <!----| NO HTML BELOW THIS LINE  |---->
+    <!--==========| gatekeeper code goes here|==============-->
+    <script>
+      const wall = document.querySelector(`#passwordWall`)
+      const cover = document.querySelector(`#shroud`)
+      const checker = new XMLHttpRequest()
+      checker.open(`POST`, `php/getAccessLevel.php`)
+      checker.send();
+      //-----------------//
+      checker.onload = function(){
+        if(checker.response !== 'high' && checker.response !== 'low'){
+          wall.style.visibility = 'visible'
+          cover.style.visibility = `visible`
+          cover.style.opacity = `1`         
+        }
+        else{
+          wall.style.visibility = 'hidden'
+          cover.style.visibility = `hidden`
+          cover.style.opacity = `0`           
+        }
+      }
+      checker.onerror = function(){
+        wall.style.visibility = 'visible'
+        cover.style.visibility = `visible`
+        cover.style.opacity = `0`         
+      }
+    </script>
+    <!--====================================================-->      
+    <!----| Let's get this party started: |---->
+    <script>
+      /*global c*/
+      window.addEventListener('DOMContentLoaded', c.initialize, true)
+    </script>
+  </body>
+</html>

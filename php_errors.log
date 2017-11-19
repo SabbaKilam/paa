@@ -798,3 +798,15 @@
 [18-Nov-2017 23:34:42 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/php/getFileList.php on line 18
 [18-Nov-2017 23:34:42 UTC] PHP Stack trace:
 [18-Nov-2017 23:34:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/getFileList.php:0
+[19-Nov-2017 05:04:42 UTC] PHP Warning:  unlink(../aad1617as/businessmanagement/uploads/Joni Mitchell - Twisted.mp3): No such file or directory in /home/ubuntu/workspace/php/deleteFile.php on line 17
+[19-Nov-2017 05:04:42 UTC] PHP Stack trace:
+[19-Nov-2017 05:04:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/deleteFile.php:0
+[19-Nov-2017 05:04:42 UTC] PHP   2. unlink() /home/ubuntu/workspace/php/deleteFile.php:17
+[19-Nov-2017 05:04:42 UTC] PHP Warning:  unlink(../aad1617as/businessmanagement/uploads/Joni Mitchell - Twisted.mp3): No such file or directory in /home/ubuntu/workspace/php/deleteFile.php on line 17
+[19-Nov-2017 05:04:42 UTC] PHP Stack trace:
+[19-Nov-2017 05:04:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/deleteFile.php:0
+[19-Nov-2017 05:04:42 UTC] PHP   2. unlink() /home/ubuntu/workspace/php/deleteFile.php:17
+[19-Nov-2017 05:04:43 UTC] PHP Warning:  unlink(../aad1617as/businessmanagement/uploads/Joni Mitchell - Twisted.mp3): No such file or directory in /home/ubuntu/workspace/php/deleteFile.php on line 17
+[19-Nov-2017 05:04:43 UTC] PHP Stack trace:
+[19-Nov-2017 05:04:43 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/deleteFile.php:0
+[19-Nov-2017 05:04:43 UTC] PHP   2. unlink() /home/ubuntu/workspace/php/deleteFile.php:17

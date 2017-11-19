@@ -6,7 +6,8 @@
 //====================| HELPER methods |=========================//
 
 //============| INITIALIZE |================//
-c.initialize = function(eventObject){  
+c.initialize = function(eventObject){
+  
   //attach "id"-ed elements to our view object (after giving window its own id)
   window.id = 'window'
   L.attachAllElementsById(v)
@@ -15,6 +16,7 @@ c.initialize = function(eventObject){
   c.makeTitleArc(m.titleCharacters, v.fanHolder, 1.5)
   v.txtPassword.focus();
   
+
   
   //for apple devices
   L.noPinchZoom()
@@ -52,7 +54,14 @@ c.initialize = function(eventObject){
   //the initial model update
   c.updateModel(eventObject)
   
-  c.getFileList() 
+  c.getFileList()
+  
+  m.uploadPath =`../aad1617as/alliedhealth/uploads/`
+  m.folderTitle = `Allied Health`
+  //m.uploadPath =`../aad1617as/businessmanagement/uploads/`
+  //m.folderTitle = `Business  Management`
+  
+  v.folderTitle.innerText = m.folderTitle  
 }
 //============| END of INITIALIZE |================//
 c.allowReadonlyAccess = function(){
@@ -170,7 +179,6 @@ c.validatePassword = function(){
 }
 
 c.bringDownWall = function(){
-  
   v.passwordWall.styles('visibility: hidden')
   v.shroud.styles('visibility: hidden')
 }

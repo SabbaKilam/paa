@@ -51,7 +51,8 @@ m.averageUploadFraction = 0
 m.fractionArray = []
 m.filesToUpload = []
 m.folderIsOpen = false
-m.uploadPath =`../aad1617as/alliedhealth/uploads/`
+m.uploadPath =`../aad1617as/businessmanagement/uploads/`
+m.folderTitle = `Business Management`
 m.scriptPath = `php/uploadFile.php`
 m.uploading = false
 
@@ -75,7 +76,7 @@ c.updateModel = function(eventObject){
   L.runQualifiedMethods(m.modelMethodQualifiers, c, c.updateView)
 }
 
-//===========| UPDATE VIEW |===========//
+//=============| UPDATE VIEW |==============//
 c.updateView = function(){
   const viewMethodQualifiers = {
     showEvents: [],
@@ -84,5 +85,4 @@ c.updateView = function(){
   }
   L.runQualifiedMethods(viewMethodQualifiers, c, "no callback needed here")
 }
-
-
+//===========| END of UPDATE VIEW |===========//

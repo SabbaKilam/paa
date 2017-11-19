@@ -46,15 +46,31 @@ m.titleCharacters = 'PIT Academic Assessment'
 m.accessLevel = 'deny'
 m.innerWidth = window.innerWidth;
 
+//---------------------//
+m.averageUploadFraction = 0
+m.fractionArray = []
+m.filesToUpload = []
+m.folderIsOpen = false
+m.uploadPath =`../aad1617as/alliedhealth/uploads/`
+m.scriptPath = `php/uploadFile.php`
+m.uploading = false
+
+m.folderBackImage = 'images/folderBack.png'
+m.folderFrontImage = 'images/folderFront.png'
+m.MAX_WIDTH = 400
+
 //===========| UPDATE MODEL |===========//
 c.updateModel = function(eventObject){
   c.updateBasicStates(eventObject)
   m.modelMethodQualifiers = {
+    setToggleFolder:        [m.source === v.folderFront || m.source === v.folderTitle, m.clicked],      
     setCheckPassword:       [m.type === 'keyup'],    
     setShroudHidden:        [v.btnHideShroud === m.source, m.clicked],
     setOfflineStatus:       [m.type === 'online' || m.type === 'offline'],
     setResize:              [m.resized],
     showAccessLevel:        [m.source === v.main, m.clicked],
+    setUploadFiles:         [m.source === v.fileElement, m.type === 'change'],
+    deleteFile:             [m.source === v.btnDeleteFile, m.clicked],     
   }
   L.runQualifiedMethods(m.modelMethodQualifiers, c, c.updateView)
 }
@@ -62,7 +78,7 @@ c.updateModel = function(eventObject){
 //===========| UPDATE VIEW |===========//
 c.updateView = function(){
   const viewMethodQualifiers = {
-    showEvents: [true],
+    showEvents: [],
     noWiggle: [m.moved], //iOS background wiggle 
     logOut:   [m.source === v.logoutGlass, m.clicked]
   }

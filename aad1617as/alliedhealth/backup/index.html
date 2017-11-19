@@ -1,0 +1,91 @@
+<!doctype html>
+<html id="root">
+  <head>
+    <title>Allied Health Viewer</title>
+    <meta name="description" content="Abbas' MVC design pattern architecture">
+    <link id="favicon" rel="icon" href="/images/PitLogo.png" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="prefixfree.js"></script>
+    <script src="L.js"></script>
+    <script src="MVC.js"></script>    
+    <script src="methodsForMODEL.js"></script>
+    <script src="methodsForVIEW.js"></script>
+    <script src="helperMethods.js"></script>
+    <script> window.document.id = 'document' </script>
+  </head>
+  <body id="body">
+    <!--==========| gatekeeper code goes here|==============-->
+    <script>
+      const checker = new XMLHttpRequest()
+      checker.open(`POST`, `../../php/getAccessLevel.php`)
+      checker.send();
+      //-----------------//
+      checker.onload = function(){
+        if(checker.response !== 'high' && checker.response !== 'low'){
+          document.location.assign(`../../`)
+        }
+      }
+      checker.onerror = function(){
+        alert(`Trouble connecting to the server.`)
+        document.location.assign(`../../`)
+      }
+    </script>
+    <!--====================================================-->
+    <main id="main">
+      <div id="folderFrame">
+        <div id="folderBack" class="folderSize">
+          
+          <div id="outerFileFrame">
+            <div id="fileControls">
+              
+                <div id="fileFrame">
+                  <div id="fileBackground" class="overlap button">Choose Files to <strong>Upload</strong></div>
+                  <input id="fileElement" type="file" class="overlap" multiple>
+                </div>
+                
+                <div id="documentFrame">
+                  <div id="btnShowFile" class="button"><strong>View</strong> This Document</div>
+                  <select id="documentSelector"><option>File.txt</option></select>
+                  <div id="btnDeleteFile" class="button">↑ <strong>Delete</strong> This Document ↑</div>                  
+                </div>
+
+            </div>
+          </div>
+          
+        </div>
+        <div id="folderFront" class="folderSize">
+          <div id="folderTitle">Allied Health</div>
+          <div id="uploadAssembly">
+            <div id="progressAssembly">
+              <div id="slot">
+                <div id="bead"></div>
+              </div>
+              <span id="pctUpload">0%</span>
+            </div>
+            <div id="uploadNames">
+              <div id="spinner"></div>
+              <div id="divFilenames"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="folderShadow"></div>      
+
+    </main>
+    <div id="shroud">
+      <!-- <div id="btnHideShroud">✗&nbsp;</div> -->     
+    </div>
+    <footer id="info">Events are shown here</footer>
+    
+    <!----| NO HTML BELOW THIS LINE  |---->
+    <!----| Let's get this party started: |---->
+    <script>
+      /*global c*/
+      window.addEventListener('DOMContentLoaded', c.initialize, true)
+    </script>
+  </body>
+</html>

@@ -23,6 +23,21 @@ body{
   text-align: center;
   font-family: sans-serif;
 }
+main {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  margin: 0;
+  padding: 0;  
+  font-family: helvetica, arial, sans-serif;
+  background-image: linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75) );    
+  overflow: hidden;
+  perspective: 100rem;
+}
 
 #fanHolder{
   position: absolute;
@@ -57,7 +72,7 @@ body{
   background-image: linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75));  
   visibility: visible;
   overflow: hidden;
-  z-index: 10;  
+  z-index: 9;  
 } 
 #passwordWall{
   position: fixed;
@@ -68,10 +83,10 @@ body{
   right: 0;
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  visibility: hidden;  
   background-image: linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75) );  
   z-index: 10;
-  overflow: hidden;
-  visibility: hidden;
 }
 
 #passwordFrame{
@@ -110,7 +125,7 @@ body{
   font-size: 1.25rem;
   width: 100%;
 }
-
+/*
 main {
   position: fixed;
   height: 98%;
@@ -125,8 +140,9 @@ main {
   border-radius: 0.5rem;
   background-color: teal;
   overflow: hidden;
+  perspective: 100rem;  
 }
-
+*/
 footer{
   position: fixed;
   bottom: 0;

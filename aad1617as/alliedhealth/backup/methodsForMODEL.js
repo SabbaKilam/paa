@@ -56,6 +56,7 @@ c.updateBasicStates = function(eventObject){
   //c.updateLocalStorage()  
 }
 //---------| END Update basic states |----------//
+//-------------------------------------------//
 c.setUploadFiles = function(){
   if(!v.fileElement.files[0]){return}
   c.clearUploadData()

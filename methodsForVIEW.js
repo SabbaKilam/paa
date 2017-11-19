@@ -4,6 +4,18 @@
 /*global c*/
 
 //===| functions that update the VIEW |=======//
+c.adjustFolderWidth = function(){
+  if(m.innerWidth >= m.MAX_WIDTH){
+    v.folderFrame.styles(`width: ${m.MAX_WIDTH}px`)
+    v.folderShadow.styles(`width: ${m.MAX_WIDTH}px`)
+  }else{
+    v.folderFrame.styles('width: 97%')
+    v.folderShadow.styles('width: 97%')
+  }
+}
+
+
+//----------------------------------------------//
 c.showEvents = function(){
   const moveCount = (m.moved) ? ` (${m.moveCount})` : ``
   const info = `${m.id}: ${m.type}${moveCount}, prior event: ${m.eventObjects[0].type}`
@@ -63,5 +75,42 @@ c.showResize = function(){
       v.header.styles('padding-top: 3rem')
     }
   }
+  //========| FOLDER STUFF |---------------------//
+  c.adjustFolderWidth()
+  setTimeout(c.attachFolderShadow,50)  
 }
-//------------
+//----------| END showResize |------------//
+
+
+c.showToggleFolder = function(){
+  m.folderIsOpen ? c.openFolder() : c.closeFolder()
+}
+//----------------------------------------------------//
+c.openFolder = function(){
+  c.getFileList()
+  v.folderFront.styles('transform: rotateX(-180deg)')
+  v.folderTitle.styles('transform: rotateX(-180deg)')
+  if(m.uploading){
+    v.uploadAssembly.styles(`visibility: visible`)
+  }
+  v.uploadAssembly.styles(`transform: rotateX(-180deg)`)(`transition: all 0.65s ease`)
+  v.folderShadow.styles
+    (`transition: all 1s ease`)
+    (`transform: rotateX(0deg)`)
+  setTimeout(function(){
+      v.folderShadow.styles(`transition: all 0s ease`)
+  }, 1000)    
+}
+
+//----------------------------------------------------//
+c.closeFolder = function(){
+  v.folderFront.styles('transform: rotateX(-30deg)')
+  v.folderTitle.styles('transform: rotateX(-30deg)')
+  v.uploadAssembly.styles(`transform: rotateX(-300deg)`)(`visibility: hidden`)(`transition: all 0s linear`)  
+  v.folderShadow.styles
+    (`transition: all 1s ease`)
+    (`transform: rotateX(87deg)`)    
+  setTimeout(function(){
+      v.folderShadow.styles(`transition: all 0s ease`)
+  }, 1000)  
+}

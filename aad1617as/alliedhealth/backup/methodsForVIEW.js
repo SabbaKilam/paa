@@ -12,9 +12,6 @@ c.showEvents = function(){
   v.info.innerText = info
 }
 
-c.showToggleFolder = function(){
-  m.folderIsOpen ? c.openFolder() : c.closeFolder()
-}
 c.showShroudHidden = function (){
   v.shroud.styles
       ('opacity: 0')
@@ -46,4 +43,8 @@ c.adjustFolderWidth = function(){
     v.folderFrame.styles('width: 97%')
     v.folderShadow.styles('width: 97%')
   }
+}
+
+c.showToggleFolder = function(){
+  m.folderIsOpen ? c.openFolder() : c.closeFolder()
 }

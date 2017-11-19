@@ -1,7 +1,7 @@
 <?php
     session_start();
     
-    if($_SESSION["accessLevel"] !== 'high' && $_SESSION["accessLevel"] !== 'low' ){
+    if($_SESSION["accessLevel"] !== 'high'){
         $_SESSION["accessLevel"] = "deny";
         die($_SESSION["accessLevel"]);
     }

@@ -4,6 +4,7 @@
 /*global c*/
 
 //===| functions that UPDATE MODEL |========//
+//=============| UPDTAE BASIC STATES AND METAP_EVENTS |==========================//
 c.updateBasicStates = function(eventObject){
   
   m.priorStartTime = m.startTime
@@ -55,7 +56,57 @@ c.updateBasicStates = function(eventObject){
   //save the updated model in localStorage  
   c.updateLocalStorage()  
 }
-//-------------------
+
+//=============| END of UPDATE BASIC STATES AND METAP_EVENTS |==========================//
+c.setToggleFolder = function(){
+  m.folderIsOpen = !m.folderIsOpen
+}
+
+//------------------| UPLOAD FILES |------------------------//
+c.setUploadFiles = function(){
+  if(!v.fileElement.files[0]){return}  
+  c.clearUploadData()
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', `php/getAccessLevel.php`)
+  xhr.send();
+  //----------------//
+  xhr.onload = function(){
+    if(xhr.status === 200){
+      if(xhr.response !== `high`){
+        const message = 
+        `You currently don't have permission to upload.
+         Try logging out and logging in again.`
+        alert(message)
+        c.logOut()
+      }
+      else{
+        m.uploading = true 
+        v.fileElement.styles(`visibility: hidden`)
+        v.spinner.styles(`visibility: visible`)
+        v.uploadAssembly.styles(`visibility: visible`)
+        
+        //save filesToUpload
+        const array = [];
+        array.forEach.call(v.fileElement.files, file=>{
+          m.filesToUpload.push({name: file.name, done: false})
+        })
+        
+        array.forEach.call(v.fileElement.files, file=>{
+          v.divFilenames.innerHTML += `${file.name}<br>`
+        })
+        
+        //provide: callback, fileElement, scriptname, uploadPath
+        L.uploadFiles(c.showProgress, v.fileElement, m.scriptPath, m.uploadPath)
+      }      
+    }
+    else if (xhr.status !== 200){
+      alert(xhr.response);
+    }
+
+  }
+}
+//------------------| END of UPLOAD FILES |------------------------//
+
 c.setCheckPassword = function(){
   const checker = new XMLHttpRequest()
   const envelope = new FormData()
@@ -74,8 +125,8 @@ c.setCheckPassword = function(){
     alert('Trouble connecting to server.')
   }
 }
+
 //---------------------------------
-//-------------------
 c.setShroudHidden = function (){
   m.shroudIsVisible = false
   m.popupIsVisible = false

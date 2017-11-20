@@ -40,7 +40,7 @@ m.debounceTimeMax = 750 // milliseconds
 m.modelMethodQualifiers = {}
 
 //specialized states (these vary per application)
-
+m.folderClicked = false
 m.isPortrait = window.innerHeight >= window.innerWidth
 m.currentAngle = -45
 m.titleCharacters = 'PIT Academic Assessment'
@@ -78,6 +78,7 @@ c.updateModel = function(eventObject){
     hideDocumentViewer:     [m.source === v.exitViewer, m.clicked],
     displayDocument:        [m.source === v.btnDisplayDocument, m.clicked],
     showDocument:           [m.source === v.documentSelector, m.type === 'change'],
+    setFolderClicked:       [m.folderClicked],
   }
   L.runQualifiedMethods(m.modelMethodQualifiers, c, c.updateView)
 }
@@ -85,7 +86,7 @@ c.updateModel = function(eventObject){
 //=============| UPDATE VIEW |==============//
 c.updateView = function(){
   const viewMethodQualifiers = {
-    showEvents: [true],
+    showEvents: [],
     noWiggle: [m.moved], //iOS background wiggle 
     logOut:   [m.source === v.logoutGlass, m.clicked]
   }
@@ -124,7 +125,8 @@ c.initialize = function(eventObject){
     'keydown',
     'online',
     'offline',
-    'dblclick'
+    'dblclick',
+    'mouseover',
   ]
   //make the window object listen to, and handle all event types of interest
   m.eventTypes.forEach(eventType =>{

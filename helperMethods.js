@@ -56,8 +56,8 @@ c.allowFullAccess = function(){
   const control = document.querySelector(`#fileControls`)
   
   //show upload and delete
-  file.style.visibility = `visible`
-  btn.style.visibility = `visible`
+  //file.style.visibility = `visible`
+  //btn.style.visibility = `visible`
   
   //restore select window
   doc.style.bottom = `20%`

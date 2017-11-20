@@ -51,13 +51,27 @@ c.updateBasicStates = function(eventObject){
   m.resized = m.type === 'resize'             ||
               m.type === 'orientationchange'  ||
               m.type === 'load'               ||
-              m.type === 'DOMContentLoaded'   ||
+              m.type === 'DOMContentLoaded' 
+  
+  
+  m.folderClicked = folderClicked()
+  //------| helper |--------//
+  function folderClicked(){
+    const fakeFolderArray = document.getElementsByClassName('clickableFolder')
+    const realArray = []
+    return realArray.includes.call(fakeFolderArray, m.source) && m.clicked
+  }
   
   //save the updated model in localStorage  
   c.updateLocalStorage()  
 }
 
 //=============| END of UPDATE BASIC STATES AND METAP_EVENTS |==========================//
+c.setFolderClicked = function(){
+  alert(m.id)
+}
+
+//-----------------------------------------------//
 c.setToggleFolder = function(){
   m.folderIsOpen = !m.folderIsOpen
 }
@@ -125,6 +139,8 @@ c.setCheckPassword = function(){
     alert('Trouble connecting to server.')
   }
 }
+
+
 
 //---------------------------------
 c.setShroudHidden = function (){

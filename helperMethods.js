@@ -6,7 +6,8 @@
 //====================| HELPER methods |=========================//
 c.hideDocumentViewer = function(){
   v.documentViewer.style.visibility = 'hidden' 
-  v.viewerFrame.src = 'DocumentLoading.html'   
+  v.viewerFrame.src = 'DocumentLoading.html'
+  v.viewingDocumentName.innerText = ``
 }
 
 c.displayDocument = function(){
@@ -21,6 +22,7 @@ c.displayDocument = function(){
     window.open(`${m.localUploadPath}${filename}`)
   }
   else{
+    v.viewingDocumentName.innerText = filename
     v.viewerFrame.src = `https://docs.google.com/gview?url=${url}&embedded=true`
     v.documentViewer.style.visibility = 'visible'              
   }

@@ -10,3 +10,11 @@
 [19-Nov-2017 20:42:50 UTC] PHP Stack trace:
 [19-Nov-2017 20:42:50 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/uploadFile.php:0
 [19-Nov-2017 20:42:50 UTC] PHP   2. file_put_contents() /home/ubuntu/workspace/php/uploadFile.php:25
+[20-Nov-2017 05:49:58 UTC] PHP Warning:  file_get_contents(): Filename cannot be empty in /home/ubuntu/workspace/php/uploadFile.php on line 24
+[20-Nov-2017 05:49:58 UTC] PHP Stack trace:
+[20-Nov-2017 05:49:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/uploadFile.php:0
+[20-Nov-2017 05:49:58 UTC] PHP   2. file_get_contents() /home/ubuntu/workspace/php/uploadFile.php:24
+[20-Nov-2017 05:49:58 UTC] PHP Warning:  file_put_contents(../uploads/): failed to open stream: Is a directory in /home/ubuntu/workspace/php/uploadFile.php on line 25
+[20-Nov-2017 05:49:58 UTC] PHP Stack trace:
+[20-Nov-2017 05:49:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/uploadFile.php:0
+[20-Nov-2017 05:49:58 UTC] PHP   2. file_put_contents() /home/ubuntu/workspace/php/uploadFile.php:25

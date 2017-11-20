@@ -25,8 +25,13 @@
                 background: transparent url(images/spinner.gif) no-repeat center;
             }
         </style>
+        <script>
+            function noBack(){
+                window.history.forward(1);
+            }
+        </script>
     </head>
-    <body>
+    <body onload="noBack()">
         <div id="waiting">waiting ...</div>
     </body>
 </html>

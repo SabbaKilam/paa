@@ -18,3 +18,7 @@
 [20-Nov-2017 05:49:58 UTC] PHP Stack trace:
 [20-Nov-2017 05:49:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/uploadFile.php:0
 [20-Nov-2017 05:49:58 UTC] PHP   2. file_put_contents() /home/ubuntu/workspace/php/uploadFile.php:25
+[20-Nov-2017 06:24:29 UTC] PHP Warning:  file_get_contents(data:): failed to open stream: rfc2397: no comma in URL in /home/ubuntu/workspace/php/uploadFile.php on line 24
+[20-Nov-2017 06:24:29 UTC] PHP Stack trace:
+[20-Nov-2017 06:24:29 UTC] PHP   1. {main}() /home/ubuntu/workspace/php/uploadFile.php:0
+[20-Nov-2017 06:24:29 UTC] PHP   2. file_get_contents() /home/ubuntu/workspace/php/uploadFile.php:24

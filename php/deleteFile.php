@@ -7,8 +7,8 @@
     }
     
     $filename = $_POST['filename'];
-    $filesLocation = '../uploads/'; 
     
+    $filesLocation = '../uploads/';
     if(isset($_POST["uploadPath"])){
         $filesLocation = $_POST["uploadPath"];
     }

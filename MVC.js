@@ -40,6 +40,7 @@ m.debounceTimeMax = 750 // milliseconds
 m.modelMethodQualifiers = {}
 
 //specialized states (these vary per application)
+
 m.isPortrait = window.innerHeight >= window.innerWidth
 m.currentAngle = -45
 m.titleCharacters = 'PIT Academic Assessment'
@@ -47,11 +48,13 @@ m.accessLevel = 'deny'
 m.innerWidth = window.innerWidth;
 
 //---------------------//
+m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`
 m.averageUploadFraction = 0
 m.fractionArray = []
 m.filesToUpload = []
 m.folderIsOpen = false
 m.uploadPath =`../aad1617as/businessmanagement/uploads/`
+m.localUploadPath = `aad1617as/businessmanagement/uploads/`
 m.folderTitle = `Business Management`
 m.scriptPath = `php/uploadFile.php`
 m.uploading = false
@@ -71,7 +74,10 @@ c.updateModel = function(eventObject){
     setResize:              [m.resized],
     showAccessLevel:        [m.source === v.main, m.clicked],
     setUploadFiles:         [m.source === v.fileElement, m.type === 'change'],
-    deleteFile:             [m.source === v.btnDeleteFile, m.clicked],     
+    deleteFile:             [m.source === v.btnDeleteFile, m.clicked],
+    hideDocumentViewer:     [m.source === v.exitViewer, m.clicked],
+    displayDocument:        [m.source === v.btnDisplayDocument, m.clicked],
+    showDocument:           [m.source === v.documentSelector, m.type === 'change'],
   }
   L.runQualifiedMethods(m.modelMethodQualifiers, c, c.updateView)
 }
@@ -79,10 +85,70 @@ c.updateModel = function(eventObject){
 //=============| UPDATE VIEW |==============//
 c.updateView = function(){
   const viewMethodQualifiers = {
-    showEvents: [],
+    showEvents: [true],
     noWiggle: [m.moved], //iOS background wiggle 
     logOut:   [m.source === v.logoutGlass, m.clicked]
   }
   L.runQualifiedMethods(viewMethodQualifiers, c, "no callback needed here")
 }
 //===========| END of UPDATE VIEW |===========//
+
+//============| INITIALIZE |================//
+c.initialize = function(eventObject){
+  
+  //attach "id"-ed elements to our view object (after giving window its own id)
+  window.id = 'window'
+  L.attachAllElementsById(v)
+  
+  c.restorePriorModel(eventObject)
+  c.makeTitleArc(m.titleCharacters, v.fanHolder, 1.5)
+  v.txtPassword.focus();
+  
+  //for apple devices
+  L.noPinchZoom()
+ 
+  //list of event types of interest
+  m.eventTypes = [
+    'change',
+    'DOMContentLoaded',
+    'load',
+    'mousedown',
+    'touchstart',
+    'mouseup',
+    'touchend',
+    'mousemove',
+    'touchmove',
+    'resize',
+    'orientationchange',
+    'keyup',
+    'keydown',
+    'online',
+    'offline',
+    'dblclick'
+  ]
+  //make the window object listen to, and handle all event types of interest
+  m.eventTypes.forEach(eventType =>{
+    window.addEventListener(eventType, c.updateModel, true )
+  })
+  
+  //for the model's state variable mutations not caused by events:
+  setInterval(function(){
+    c.updateView();
+  }, 16.66667) // ~ 60 frames/second  
+  
+  v.txtPassword.focus();
+  //the initial model update
+  c.updateModel(eventObject)
+  
+  c.getFileList()
+  
+  m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`  
+  m.uploadPath =`../aad1617as/alliedhealth/uploads/`
+  m.localUploadPath = `aad1617as/alliedhealth/uploads/`
+  m.folderTitle = `Allied Health`
+  //m.uploadPath =`../aad1617as/businessmanagement/uploads/`
+  //m.folderTitle = `Business  Management`
+  
+  v.folderTitle.innerText = m.folderTitle  
+}
+//============| END of INITIALIZE |================//

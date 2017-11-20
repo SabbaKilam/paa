@@ -38,7 +38,7 @@
                 </div>
                 
                 <div id="documentFrame">
-                  <div id="btnShowFile" class="button"><strong>View</strong> This Document</div>
+                  <div id="btnDisplayDocument" class="button"><strong>View</strong> This Document</div>
                   <select id="documentSelector"><option>File.txt</option></select>
                   <div id="btnDeleteFile" class="button">↑ <strong>Delete</strong> This Document ↑</div>                  
                 </div>
@@ -54,8 +54,8 @@
               <div id="slot">
                 <div id="bead"></div>
               </div>
-              <span id="pctUpload">0%</span>
             </div>
+            <div id="pctUpload">0%</div>            
             <div id="uploadNames">
               <div id="spinner"></div>
               <div id="divFilenames"></div>
@@ -63,10 +63,11 @@
           </div>
         </div>
       </div>
-      <div id="folderShadow"></div>  
   <!--=================| END of FOLDER FRAME |==================================-->
+      <div id="folderShadow"></div>
   <!--============================| END CARD ASSEMBLIES |=======================-->
   </main>
+   
     <div id="shroud">
       <!-- <div id="btnHideShroud">✗&nbsp;</div> -->     
     </div>
@@ -79,6 +80,12 @@
         </div>
       </div>
     </div>
+    <!--===========================| DOCUMENT VIEWER |====================================-->
+    <div id="documentViewer">
+        <iframe id="viewerFrame" frameborder="0" src="DocumentLoading.html"></iframe>
+        <div id="exitViewer">✗</div>
+    </div>
+    <!--=======================| END of DOCUMENT VIEWER |====================================-->      
     <footer id="info">
       <span id="footerInfo"></span>
     </footer>

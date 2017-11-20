@@ -4,66 +4,30 @@
 /*global c*/
 
 //====================| HELPER methods |=========================//
-
-//============| INITIALIZE |================//
-c.initialize = function(eventObject){
-  
-  //attach "id"-ed elements to our view object (after giving window its own id)
-  window.id = 'window'
-  L.attachAllElementsById(v)
-  
-  c.restorePriorModel(eventObject)
-  c.makeTitleArc(m.titleCharacters, v.fanHolder, 1.5)
-  v.txtPassword.focus();
-  
-
-  
-  //for apple devices
-  L.noPinchZoom()
- 
-  //list of event types of interest
-  m.eventTypes = [
-    'change',
-    'DOMContentLoaded',
-    'load',
-    'mousedown',
-    'touchstart',
-    'mouseup',
-    'touchend',
-    'mousemove',
-    'touchmove',
-    'resize',
-    'orientationchange',
-    'keyup',
-    'keydown',
-    'online',
-    'offline',
-    'dblclick'
-  ]
-  //make the window object listen to, and handle all event types of interest
-  m.eventTypes.forEach(eventType =>{
-    window.addEventListener(eventType, c.updateModel, true )
-  })
-  
-  //for the model's state variable mutations not caused by events:
-  setInterval(function(){
-    c.updateView();
-  }, 16.66667) // ~ 60 frames/second  
-  
-  v.txtPassword.focus();
-  //the initial model update
-  c.updateModel(eventObject)
-  
-  c.getFileList()
-  
-  m.uploadPath =`../aad1617as/alliedhealth/uploads/`
-  m.folderTitle = `Allied Health`
-  //m.uploadPath =`../aad1617as/businessmanagement/uploads/`
-  //m.folderTitle = `Business  Management`
-  
-  v.folderTitle.innerText = m.folderTitle  
+c.hideDocumentViewer = function(){
+  v.documentViewer.style.visibility = 'hidden' 
+  v.viewerFrame.src = 'DocumentLoading.html'   
 }
-//============| END of INITIALIZE |================//
+
+c.displayDocument = function(){
+  v.viewerFrame.src = 'DocumentLoading.html'   
+
+  const index = v.documentSelector.selectedIndex !== -1 ? v.documentSelector.selectedIndex : 0
+  const filename = v.documentSelector.options[index].innerText
+  
+  const url = `${m.baseUrl}${m.localUploadPath}${filename}`
+  const ext = filename.slice(-3).toLowerCase()            
+  if(ext === 'mp3' || ext === 'jpg' || ext === 'gif' || ext === 'png'){
+    window.open(`${m.localUploadPath}${filename}`)
+  }
+  else{
+    v.viewerFrame.src = `https://docs.google.com/gview?url=${url}&embedded=true`
+    v.documentViewer.style.visibility = 'visible'              
+  }
+
+}
+c.showDocument = c.displayDocument
+
 c.allowReadonlyAccess = function(){
   const file = document.querySelector(`#fileFrame`)
   const doc = document.querySelector(`#documentFrame`)
@@ -311,7 +275,8 @@ c.clearUploadData = function(){
   m.filesToUpload = []   
   m.averageUploadFraction = 0
   v.uploadAssembly.styles(`visibility: hidden`)
-  v.fileElement.styles(`visibility: visible`)  
+  v.fileElement.styles(`visibility: visible`) 
+  v.spinner.styles(`visibility: hidden`)  
 }
 
 c.showProgress = function(loaded, total, index){

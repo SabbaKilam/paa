@@ -50,7 +50,7 @@ L.attachAllElementsById = function(here){
 L.noPinchZoom = function(){
   window.ontouchstart = function(eventObject){
     if(eventObject.touches && eventObject.touches.length > 1){
-      eventObject.preventDefault();
+       eventObject.preventDefault(); 
     }
   }  
 }

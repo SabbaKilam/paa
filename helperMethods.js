@@ -4,12 +4,32 @@
 /*global c*/
 
 //====================| HELPER methods |=========================//
+c.applyPermissionsToDocumentFolder = function(){
+  const checker = new XMLHttpRequest()
+  checker.open(`POST`, `php/getAccessLevel.php`)
+  checker.send();
+  //-----------------//
+  checker.onload = function(){
+    if(checker.status === 200){
+      if(checker.response === 'high'){c.allowFullAccess()}//
+      else if(checker.response === 'low'){c.allowReadonlyAccess()}
+     }
+    else{
+      alert(`Trouble at the server: ${checker.status}`)
+    }
+  }
+  checker.onerror = function(){
+      alert(`Trouble connecting the server: ${checker.status}`)
+  }
+}
+//-------------------------------------------------------//
+
 c.hideDocumentViewer = function(){
   v.documentViewer.style.visibility = 'hidden' 
   v.viewerFrame.src = 'DocumentLoading.html'
   v.viewingDocumentName.innerText = ``
 }
-
+//-----------------------------------------//
 c.displayDocument = function(){
   v.viewerFrame.src = 'DocumentLoading.html'   
 
@@ -26,10 +46,9 @@ c.displayDocument = function(){
     v.viewerFrame.src = `https://docs.google.com/gview?url=${url}&embedded=true`
     v.documentViewer.style.visibility = 'visible'              
   }
-
 }
 c.showDocument = c.displayDocument
-
+//-------------------------------------------------//
 c.allowReadonlyAccess = function(){
   const file = document.querySelector(`#fileFrame`)
   const doc = document.querySelector(`#documentFrame`)
@@ -56,21 +75,22 @@ c.allowFullAccess = function(){
   const control = document.querySelector(`#fileControls`)
   
   //show upload and delete
-  //file.style.visibility = `visible`
-  //btn.style.visibility = `visible`
+  file.style.visibility = `visible`
+  btn.style.visibility = `visible`
   
   //restore select window
   doc.style.bottom = `20%`
   control.style.top = `70%`
   outer.style.height = `100%`
   outer.style.top = `35%`
-  
 }
 
 //-----------------------------------------------//
 c.noWiggle = function(){
   if(m.moveCount > 1 && m.moved){
-    m.eventObject.preventDefault()
+    if(m.source.tagName.toLowerCase() !== 'input'){
+      m.eventObject.preventDefault()      
+    }
   }
 }
 
@@ -157,12 +177,6 @@ c.showAccessLevel = function(){
   //------------//
   getter.onload = ()=> alert(getter.response)
   getter.onerror = ()=> alert("Trouble connecting to server.")
-  /*
-  window.fetch('php/getAccessLevel.php')
-    .then(response => response.text() )
-    .then(text => alert(text))
-    .catch( error => alert(error))
-  */
 }
 
 c.makeTitleArc = function(string, target, angle = 5){
@@ -348,8 +362,10 @@ c.allowReadonlyAccess = function(){
 c.fillDocumentSelector = function (filesString){
     const currentFilename = v.documentSelector.options[v.documentSelector.selectedIndex] && v.documentSelector.options[v.documentSelector.selectedIndex].innerText
     v.documentSelector.innerHTML = ''
-    const filenameArray = filesString.split('\n')
+    let filenameArray = filesString.split('\n')
     filenameArray.pop() // get rid of the blank last entry
+    //sort the array by filename
+    filenameArray = L.sortByExtension(filenameArray)
     filenameArray.forEach( filename =>{
         const option = document.createElement('option')
         option.innerText = filename

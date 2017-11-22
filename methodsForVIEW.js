@@ -7,13 +7,12 @@
 c.adjustFolderWidth = function(){
   if(m.innerWidth >= m.MAX_WIDTH){
     v.folderFrame.styles(`width: ${m.MAX_WIDTH}px`)
-    v.folderShadow.styles(`width: ${m.MAX_WIDTH}px`)
+    //v.folderShadow.styles(`width: ${m.MAX_WIDTH}px`)
   }else{
     v.folderFrame.styles('width: 97%')
-    v.folderShadow.styles('width: 97%')
+    //v.folderShadow.styles('width: 97%')
   }
 }
-
 
 //----------------------------------------------//
 c.showEvents = function(){
@@ -24,7 +23,6 @@ c.showEvents = function(){
   v.footerInfo.innerText = info
   //
 }
-
 
 c.showShroudHidden = function (){
   v.shroud.styles
@@ -52,7 +50,6 @@ c.showResize = function(){
   shiftLogo()
   //---| helper(s) |-----//
   function angle(width){
-    /*return (1/1200) * width + (5.5/12)*/
     return (1/1200) * width + (7.5/12)    
   }
   //------
@@ -77,29 +74,28 @@ c.showResize = function(){
   }
   //========| FOLDER STUFF |---------------------//
   c.adjustFolderWidth()
-  setTimeout(c.attachFolderShadow,50)  
+  //setTimeout(c.attachFolderShadow,50)  
 }
 //----------| END showResize |------------//
 
 
 c.showToggleFolder = function(){
+  c.getFileList()  
   m.folderIsOpen ? c.openFolder() : c.closeFolder()
 }
 //----------------------------------------------------//
 c.openFolder = function(){
-  c.getFileList()
   v.folderFront.styles('transform: rotateX(-180deg)')
   v.folderTitle.styles('transform: rotateX(-180deg)')
   if(m.uploading){
     v.uploadAssembly.styles(`visibility: visible`)
   }
+  v.outerFileFrame.styles(`visibility: visible`)
+  v.documentFrame.styles(`visibility: visible`)
   v.uploadAssembly.styles(`transform: rotateX(-180deg)`)(`transition: all 0.65s ease`)
   v.folderShadow.styles
     (`transition: all 1s ease`)
-    (`transform: rotateX(0deg)`)
-  setTimeout(function(){
-      v.folderShadow.styles(`transition: all 0s ease`)
-  }, 1000)    
+    (`transform: rotateX(-180deg)`)
 }
 
 //----------------------------------------------------//
@@ -109,8 +105,5 @@ c.closeFolder = function(){
   v.uploadAssembly.styles(`transform: rotateX(-300deg)`)(`visibility: hidden`)(`transition: all 0s linear`)  
   v.folderShadow.styles
     (`transition: all 1s ease`)
-    (`transform: rotateX(87deg)`)    
-  setTimeout(function(){
-      v.folderShadow.styles(`transition: all 0s ease`)
-  }, 1000)  
+    (`transform: rotateX(-94deg)`)
 }

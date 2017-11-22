@@ -17,7 +17,7 @@
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  perspective: 60rem;
+  perspective: 100rem; 
 }
 
 #folderBack{
@@ -25,11 +25,12 @@
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: 100% 100%;
-   
+  width: 100%;
 }
 
 #folderFront{
   height: 100%;
+  width: 100%;
   background-image: url(../../images/FolderFront.png);
   background-repeat: no-repeat;
   background-position: bottom;
@@ -40,22 +41,19 @@
   cursor: pointer;
 }
 
-
 #folderShadow{
-  position: absolute;
-  height: 40.5%;/* 90% of 45% */
-  margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  background-color: rgb(210, 210, 210);  
-  background-color: rgba(95, 95, 95, 0.15);
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  transform-origin: top;
-  transform: rotateX(87deg);
-  box-shadow: 0 1rem 2rem rgba(95, 95, 95, 0.2);
+  margin-top: 0.9rem;
+  z-index: -1;  
+  height: 92%;
+  width: 100%;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;  
+  background-color: rgb(100, 100, 100);  
+  background-color: rgba(100, 100, 100, 0.15);  
+  transform-origin: bottom;
+  transform: rotateX(-94deg);
+  transition: all 1s ease;
+  box-shadow: 0 -1rem 1.5rem rgba(100, 100, 100, 0.15);  
 }
 
 #folderTitle{
@@ -82,6 +80,7 @@
   text-align: center;
   visibility: hidden;
 }
+
 #spinner{
   position: absolute;
   margin: auto;
@@ -95,6 +94,7 @@
   background-size: contain;
   visibility: hidden;  
 }
+
 #divFilenames{
   position: absolute;
   padding: 1rem;
@@ -144,6 +144,7 @@
   /*outline: 1px solid green;*/ 
   box-shadow: inset 0 -0.0625rem 0.5rem #333;
 }
+
 #slot{
   position: absolute;
   margin: auto;
@@ -184,10 +185,12 @@
   /*outline: 1px solid red;*/
   padding: 1rem;
   padding-top: 0;
+  visibility: hidden;
 }
+
 #fileControls{
   position: absolute;
-  top: 70%;
+  top: 67%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
@@ -196,6 +199,7 @@
   padding: 1rem; 
   padding-top: 0;
 }
+
 #fileFrame{
   position: absolute;
   top: 0%;
@@ -203,13 +207,14 @@
   transform: translateX(-50%);
   width: 95%;
   height: 20%;
-  /*outline: 1px solid blue;*/
+ /* outline: 1px solid blue;*/
   padding: 0.25rem; 
   cursor: pointer;
+  visibility: hidden;
 }
 
 #btnDeleteFile{
- 
+  visibility: hidden;
 }
 
 .button{/*#fileBackground*/
@@ -222,12 +227,12 @@
   margin: 3px;
   box-shadow: 1px 1px 2px black;
   font-size: 1rem;
-  
 }
 
 .button:hover{
   color: white;
 }
+
 .button:active{
   background-image: linear-gradient(blue, lightblue); 
   box-shadow: inset 1px 1px 2px black; 
@@ -236,12 +241,13 @@
 
 #documentFrame{
   position: absolute;
-  bottom: 20%;
+  bottom: 18%;
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
   /*outline: 1px solid blue;*/
-  padding: 0.5rem;  
+  padding: 0.5rem;
+  padding-bottom: 0;
 }
 
 #documentSelector{
@@ -260,8 +266,8 @@ option{
   left: 0;
   right: 0;
   height: 100%;
-
 }
+
 #fileElement{
   display: inline-block;  
   position: absolute;
@@ -287,6 +293,7 @@ option{
     visibility: hidden; 
     background-image: linear-gradient(-20deg, lightblue, white, lightblue);                 
 }
+
 #viewerFrame{
   position: absolute;
   height: 100%;
@@ -304,9 +311,9 @@ option{
     height: 2.5rem;
     width: 2.5rem;
     border-radius: 50%;
-    z-index: 3;
-    top: 3.5rem;
-    left: 1rem;
+    z-index: 4;
+    top: 1rem;
+    right: 5rem;
     background-image: linear-gradient(-20deg, lightblue, white, lightblue); 
     font-size: 1.75rem;
     font-weight: bold;
@@ -316,25 +323,42 @@ option{
     text-shadow: 0 1px 0 white;
     cursor: pointer;
 }
+
 #viewingDocumentName{
     position: absolute;
+    margin: auto;
+    width: 50%;
+    left: 0;
+    right: 0;
     height: 2.5rem;
     z-index: 3;
-    top: 1rem;
-    left: 1rem;
-    font-size: 1.25rem;
+    top: 0;
+    font-size: calc(calc(0.55vh + 0.55vw) + 4px);
     font-weight: bold;
-    text-align: left;
+    text-align: center;
     text-shadow: 0 1px 0 white;
+    padding: 1%;
+    border-radius: 0.5rem;
+    background: rgba(200,200,200,0.3);
+    box-shadow: 0 0.25rem 0.5rem gray;
+    overflow: hidden;
+    /*outline: 1px solid red;*/
 }
+
 #folderAssembly{
-  visibility: hidden;
+  visibility: visible;
 }
 /*====================| FOLDERS for Degree Programs |========================================*/
+#foldersDegreePrograms{
+  top: 30%;
+  visibility: hidden;
+  bottom: calc(3% + 10px);
+}
+
 .card{
   position: absolute;
   bottom: calc(3% + 10px);
-  height: 75%;/*?*/
+  height: 78%;/*?*/
   margin: auto;
   width: 100%;
   /*outline: 1px solid red;*/
@@ -361,10 +385,14 @@ option{
   font-size: calc(calc(0.75vh + 1vw) + 5px);
   cursor: pointer;
   text-shadow: 0 1px 0 #eee;
-  background: rgba(150, 150, 150, 0.25) url(images/ManilaFolderOpen.gif) no-repeat center;
-  background-size: 14vw 13vh;
+  /*background: rgba(150, 150, 150, 0.25) url(images/ManilaFolderOpen.gif) no-repeat center; */
+  background-image: linear-gradient(-20deg, hsla(210, 65%, 90%, 0.75), transparent, hsla(210, 65%, 90%, 0.75) ), url(images/ManilaFolderOpen.gif);  
+  background-size: cover, 14vw 13vh;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-color: transparent, transparent;
   border-radius: 0.5rem;
-  box-shadow: -0.25rem 0.25rem 0.5rem black;
+  box-shadow: 0.25rem 0.25rem 0.5rem black;
 }
 
 .clickableFolder:hover{
@@ -375,9 +403,6 @@ option{
   color: teal;
 }
 
-#foldersDegreePrograms{
-  visibility: visible;
-  bottom: calc(3% + 10px);
-}
+
 
 /*====================| END of FOLDERS for Degree Programs |=================================*/

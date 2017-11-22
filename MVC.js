@@ -86,8 +86,8 @@ c.updateModel = function(eventObject){
 //=============| UPDATE VIEW |==============//
 c.updateView = function(){
   const viewMethodQualifiers = {
-    showEvents: [],
-    noWiggle: [m.moved], //iOS background wiggle 
+    showEvents: [1],
+    //noWiggle: [m.moved, false], //iOS background wiggle 
     logOut:   [m.source === v.logoutGlass, m.clicked]
   }
   L.runQualifiedMethods(viewMethodQualifiers, c, "no callback needed here")
@@ -101,15 +101,20 @@ c.initialize = function(eventObject){
   window.id = 'window'
   L.attachAllElementsById(v)
   
-  c.restorePriorModel(eventObject)
+  //c.restorePriorModel(eventObject)
   c.makeTitleArc(m.titleCharacters, v.fanHolder, 1.5)
   v.txtPassword.focus();
   
+  //restrict document folder to proper permissions
+  //c.applyPermissionsToDocumentFolder()
+  
+  
   //for apple devices
-  L.noPinchZoom()
+  //L.noPinchZoom()
  
   //list of event types of interest
   m.eventTypes = [
+    'click',
     'change',
     'DOMContentLoaded',
     'load',
@@ -134,9 +139,9 @@ c.initialize = function(eventObject){
   })
   
   //for the model's state variable mutations not caused by events:
-  setInterval(function(){
-    c.updateView();
-  }, 16.66667) // ~ 60 frames/second  
+  //setInterval(function(){
+   // c.updateView();
+ // }, 16.66667) // ~ 60 frames/second  
   
   v.txtPassword.focus();
   //the initial model update
@@ -144,13 +149,14 @@ c.initialize = function(eventObject){
   
   c.getFileList()
   
+  m.folderIsOpen = false
+  
   m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`  
   m.uploadPath =`../aad1617as/alliedhealth/uploads/`
   m.localUploadPath = `aad1617as/alliedhealth/uploads/`
   m.folderTitle = `Allied Health`
   //m.uploadPath =`../aad1617as/businessmanagement/uploads/`
   //m.folderTitle = `Business  Management`
-  
   v.folderTitle.innerText = m.folderTitle  
 }
 //============| END of INITIALIZE |================//

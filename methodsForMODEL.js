@@ -73,6 +73,7 @@ c.setFolderClicked = function(){
 
 //-----------------------------------------------//
 c.setToggleFolder = function(){
+  c.applyPermissionsToDocumentFolder()
   m.folderIsOpen = !m.folderIsOpen
 }
 
@@ -99,12 +100,13 @@ c.setUploadFiles = function(){
         v.spinner.styles(`visibility: visible`)
         v.uploadAssembly.styles(`visibility: visible`)
         
-        //save filesToUpload
+        //save file status object filesToUpload array
         const array = [];
         array.forEach.call(v.fileElement.files, file=>{
           m.filesToUpload.push({name: file.name, done: false})
         })
         
+        // list the name of each file to be uploaded
         array.forEach.call(v.fileElement.files, file=>{
           v.divFilenames.innerHTML += `${file.name}<br>`
         })
@@ -114,9 +116,8 @@ c.setUploadFiles = function(){
       }      
     }
     else if (xhr.status !== 200){
-      alert(xhr.response);
+      alert(`Problem at the server: ${xhr.response}`);
     }
-
   }
 }
 //------------------| END of UPLOAD FILES |------------------------//
@@ -139,8 +140,6 @@ c.setCheckPassword = function(){
     alert('Trouble connecting to server.')
   }
 }
-
-
 
 //---------------------------------
 c.setShroudHidden = function (){

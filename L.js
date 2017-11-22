@@ -1,7 +1,7 @@
 /*
   Author:  Abbas Abdulmalik
   Created: ~ May, 2017
-  Revised: November 15, 2017 
+  Revised: November 22, 2017 
   Original Filename: L.js 
   Purpose: a small personal re-usable js library for a simple MVC architecture
   Notes: Now qualifyFunction helper doesn't return true for empty arrays (no vacuous truth)
@@ -12,6 +12,8 @@
          1.) the amount of bytes uploaded so far
          2.) the total size of the file in bytes
          3.) the index of the file in the "array" of files being uploaded
+         
+         Added sortByExtension that alphabetizes an array of strings in place by filename extension 
 */
 
 var L = {}
@@ -131,4 +133,43 @@ L.uploadFiles = function(progressReporter, fileElement, phpScriptName, uploadPat
       }
     }
   })
+}
+//---------------------------------------------------------//
+/**
+  Given an array of strings (array), sorts the array 'in place' by filename EXTENSION,
+  and returns a copy of the array as well. Since it mutates the array, it is decidedly not
+  functionistic (but it functions).
+*/
+L.sortByExtension = function (array) {
+  const type = {}.toString.call(array, null);
+  if (type !== '[object Array]') {
+    return array;
+  }
+  if (array.length === 0 || array.some(member => typeof member !== 'string')) {
+    return array;
+  }
+  //-------------------------------------//
+  let extension = ``;
+  let nudeWord = ``;  
+  array.forEach((m, i, a) => {
+    if (m.lastIndexOf(`.`) !== -1) {
+      //get the extension
+      extension = m.slice(m.lastIndexOf(`.`) + 1);
+      nudeWord = m.slice(0, m.lastIndexOf(`.`));
+      a[i] = `${extension}.${nudeWord}`;
+    }
+  });
+  
+  array.sort();
+  
+  array.forEach((m, i, a) => {
+    if (m.indexOf(`.`) !== -1){
+      //get prefix (formerly the extension)
+      extension = m.slice(0, m.indexOf(`.`))
+      nudeWord = m.slice(m.indexOf(`.`) + 1)
+      a[i] = `${nudeWord}.${extension}`
+    }
+  });
+  
+  return array;
 }

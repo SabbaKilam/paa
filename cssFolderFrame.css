@@ -343,13 +343,12 @@ option{
     padding: 1%;
     border-radius: 0.5rem;
     background: rgba(200,200,200,0.3);
-    box-shadow: 0 0.25rem 0.5rem gray;
     overflow: hidden;
+    transition: all 0 linear;
     /*outline: 1px solid red;*/
 }
 
 #folderAssembly{
-  //visibility: visible;
   visibility: hidden;
 }
 
@@ -357,8 +356,6 @@ option{
 #foldersDegreePrograms{
   top: 30%;
   visibility: visible;
-  //visibility: hidden;
-  
   bottom: calc(3% + 10px);
 }
 

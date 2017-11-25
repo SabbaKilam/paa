@@ -1,5 +1,5 @@
 {
-  "short_name": "",
+  "short_name": "PIT Academic Assesment",
   "name": "PIT Academic Assesment",
   "icons": [
     {
@@ -12,5 +12,4 @@
   "start_url": "index.html?launcher=true;homescreen=1",
   "theme_color": "#eee",
   "background_color" : "#eee",
-  "orientation" : "portrait"
 }

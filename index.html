@@ -1,7 +1,7 @@
 <!doctype html>
 <html id="root">
   <head>
-    <title>PIT Assessment</title>
+    <title>PIT Academic Assessment</title>
     <meta name="description" content="Abbas' MVC design pattern architecture">
     <link id="favicon" rel="icon" href="images/PitLogo192x192.png" type="image/x-icon">
     <link rel="manifest" href="manifest.json">    
@@ -138,7 +138,7 @@
       const wall = document.querySelector(`#passwordWall`)
       const cover = document.querySelector(`#shroud`)
       const checker = new XMLHttpRequest()
-      checker.open(`POST`, `php/getAccessLevel.php`)
+      checker.open(`POST`, `php/setAccessLevel.php`)
       checker.send();
       //-----------------//
       checker.onload = function(){

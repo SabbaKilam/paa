@@ -39,8 +39,7 @@ m.debounceTimeMax = 750 // milliseconds
 
 m.modelMethodQualifiers = {}
 
-//specialized states (these vary per application)
-m.folderClicked = false
+//=================| Specialized States (these vary per application) |=================//
 m.isPortrait = window.innerHeight >= window.innerWidth
 m.currentAngle = -45
 m.titleCharacters = 'PIT Academic Assessment'
@@ -49,15 +48,18 @@ m.innerWidth = window.innerWidth;
 
 //---------------------//
 m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`
+m.folderClicked = false
 m.averageUploadFraction = 0
 m.fractionArray = []
 m.filesToUpload = []
 m.folderIsOpen = false
-m.uploadPath =`../aad1617as/businessmanagement/uploads/`
-m.localUploadPath = `aad1617as/businessmanagement/uploads/`
+m.uploadPath =`../aady1617as/businessmanagement/uploads/`
+m.localUploadPath = `aady1617as/businessmanagement/uploads/`
 m.folderTitle = `Business Management`
 m.scriptPath = `php/uploadFile.php`
 m.uploading = false
+
+m.breadCrumbsArray = [] //to be initialized on startup
 
 m.folderBackImage = 'images/folderBack.png'
 m.folderFrontImage = 'images/folderFront.png'
@@ -67,17 +69,17 @@ m.MAX_WIDTH = 400
 c.updateModel = function(eventObject){
   c.updateBasicStates(eventObject)
   m.modelMethodQualifiers = {
-    setToggleFolder:        [m.source === v.folderFront || m.source === v.folderTitle, m.clicked],      
-    setCheckPassword:       [m.type === 'keyup'],    
+    setToggleFolder:        [m.source === v.folderFront || m.source === v.folderTitle || m.source === v.folderBack, m.clicked],      
+    setCheckPassword:       [m.source === v.txtPassword, m.type === 'keyup'],    
     setShroudHidden:        [v.btnHideShroud === m.source, m.clicked],
     setOfflineStatus:       [m.type === 'online' || m.type === 'offline'],
     setResize:              [m.resized],
-    showAccessLevel:        [m.source === v.main, m.clicked],
+    showAccessLevel:        [m.source === v.main, m.clicked, false],
     setUploadFiles:         [m.source === v.fileElement, m.type === 'change'],
     deleteFile:             [m.source === v.btnDeleteFile, m.clicked],
     hideDocumentViewer:     [m.source === v.exitViewer, m.clicked],
     displayDocument:        [m.source === v.btnDisplayDocument, m.clicked],
-    showDocument:           [m.source === v.documentSelector, m.type === 'change'],
+    showDocument:           [m.source === v.documentSelector, m.type === 'change'],//same as above
     setFolderClicked:       [m.folderClicked],
   }
   L.runQualifiedMethods(m.modelMethodQualifiers, c, c.updateView)
@@ -86,8 +88,8 @@ c.updateModel = function(eventObject){
 //=============| UPDATE VIEW |==============//
 c.updateView = function(){
   const viewMethodQualifiers = {
-    showEvents: [1],
-    //noWiggle: [m.moved, false], //iOS background wiggle 
+    showEvents: [],
+    noWiggle: [m.moved, false], //iOS background wiggle 
     logOut:   [m.source === v.logoutGlass, m.clicked]
   }
   L.runQualifiedMethods(viewMethodQualifiers, c, "no callback needed here")
@@ -151,12 +153,23 @@ c.initialize = function(eventObject){
   
   m.folderIsOpen = false
   
-  m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`  
-  m.uploadPath =`../aad1617as/alliedhealth/uploads/`
-  m.localUploadPath = `aad1617as/alliedhealth/uploads/`
+  m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`
+  
+  /*
+  m.localUploadPath = `aady1617as/alliedhealth/uploads/`
+  m.uploadPath =`../aady1617as/alliedhealth/uploads/`
   m.folderTitle = `Allied Health`
-  //m.uploadPath =`../aad1617as/businessmanagement/uploads/`
-  //m.folderTitle = `Business  Management`
-  v.folderTitle.innerText = m.folderTitle  
+  */
+  
+  
+  m.localUploadPath = `aady1617as/businessmanagement/uploads/` 
+  m.uploadPath =`../aady1617as/businessmanagement/uploads/`
+  m.folderTitle = `Business  Management`
+  
+  
+  v.folderTitle.innerText = m.folderTitle
+  m.breadCrumbsArray = []
+  
+  c.initializeBreadCrumbs()
 }
 //============| END of INITIALIZE |================//

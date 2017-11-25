@@ -4,6 +4,17 @@
 /*global c*/
 
 //===| functions that update the VIEW |=======//
+c.showFolderClicked = function(){
+  v.folderTitle.innerText = m.source.title
+  //alert(v.folderTitle)
+  const arrow = ` ➜ `
+  const trail = `${m.breadCrumbsArray[0].topicTitle}${arrow}${m.breadCrumbsArray[1].topicTitle}${arrow}${m.breadCrumbsArray[2].topicTitle}${arrow}${m.breadCrumbsArray[3].topicTitle}` 
+
+  v.folderAssembly.styles(`visibility: visible`)
+  v.foldersDegreePrograms.styles(`visibility: hidden`)
+  
+}
+//---------------------------------------//
 c.adjustFolderWidth = function(){
   if(m.innerWidth >= m.MAX_WIDTH){
     v.folderFrame.styles(`width: ${m.MAX_WIDTH}px`)
@@ -85,6 +96,7 @@ c.showToggleFolder = function(){
 }
 //----------------------------------------------------//
 c.openFolder = function(){
+  c.applyPermissionsToDocumentFolder()
   v.folderFront.styles('transform: rotateX(-180deg)')
   v.folderTitle.styles('transform: rotateX(-180deg)')
   if(m.uploading){
@@ -100,6 +112,7 @@ c.openFolder = function(){
 
 //----------------------------------------------------//
 c.closeFolder = function(){
+  c.applyPermissionsToDocumentFolder()  
   v.folderFront.styles('transform: rotateX(-30deg)')
   v.folderTitle.styles('transform: rotateX(-30deg)')
   v.uploadAssembly.styles(`transform: rotateX(-300deg)`)(`visibility: hidden`)(`transition: all 0s linear`)  

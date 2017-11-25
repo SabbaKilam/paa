@@ -13,7 +13,7 @@
          2.) the total size of the file in bytes
          3.) the index of the file in the "array" of files being uploaded
          
-         Added sortByExtension that alphabetizes an array of strings in place by filename extension 
+         Added sortByExtension that alphabetizes an array of strings 'in place' by filename extension 
 */
 
 var L = {}
@@ -171,5 +171,8 @@ L.sortByExtension = function (array) {
     }
   });
   
-  return array;
+  const newArray = []
+  array.forEach( m => newArray.push(m))
+  
+  return newArray;
 }

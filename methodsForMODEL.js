@@ -68,12 +68,15 @@ c.updateBasicStates = function(eventObject){
 
 //=============| END of UPDATE BASIC STATES AND METAP_EVENTS |==========================//
 c.setFolderClicked = function(){
-  alert(m.id)
+  const folderName = m.breadCrumbsArray.reduce((result, crumb) => `${result}${crumb.topicId}`, '')
+  m.localUploadPath = `${folderName}/${m.id}/uploads/` 
+  m.uploadPath =`../${folderName}/${m.id}/uploads/`
+  m.folderTitle = m.source.title
 }
 
 //-----------------------------------------------//
 c.setToggleFolder = function(){
-  c.applyPermissionsToDocumentFolder()
+  //c.applyPermissionsToDocumentFolder()
   m.folderIsOpen = !m.folderIsOpen
 }
 
@@ -132,8 +135,11 @@ c.setCheckPassword = function(){
   //----------------------------//
   checker.onload = function(){
     if(checker.status === 200){
-      m.accessLevel = checker.response
-      c.validatePassword()
+      if(checker.response === 'low' || checker.response === 'high'){
+        c.bringDownWall()
+        c.allowReadonlyAccess()        
+      }
+      m.accessLevel = checker.response//must elimniate this variab
     }
   }
   checker.onerror = function(){

@@ -9,7 +9,6 @@
   bottom: 0;
 }
 
-
 #folderFrame{
   position: absolute;
   width: 50%;
@@ -26,6 +25,7 @@
   background-position: bottom;
   background-size: 100% 100%;
   width: 100%;
+  cursor: pointer;
 }
 
 #folderFront{
@@ -63,7 +63,8 @@
   left: 0;
   right: 0;
   text-align: center;
-  transition: all 1s ease;  
+  transition: all 1s ease;
+  font-weight: bold;
 }
 
 #uploadAssembly{
@@ -170,7 +171,8 @@
   top: 0;
   bottom: 0;
   left: 1px;
-  background-image: linear-gradient(lightgray, teal, #222);
+  background-image: linear-gradient(transparent, white, transparent, teal, #222), url(images/progressBar.gif);
+  background-size: cover, contain;
   /*border-radius: 0.39rem;*/ 
   border-radius: 0.2rem;
 }
@@ -322,6 +324,7 @@ option{
     color: red;
     text-shadow: 0 1px 0 white;
     cursor: pointer;
+    transform: rotateY(180deg);
 }
 
 #viewingDocumentName{
@@ -346,12 +349,16 @@ option{
 }
 
 #folderAssembly{
-  visibility: visible;
+  //visibility: visible;
+  visibility: hidden;
 }
+
 /*====================| FOLDERS for Degree Programs |========================================*/
 #foldersDegreePrograms{
   top: 30%;
-  visibility: hidden;
+  visibility: visible;
+  //visibility: hidden;
+  
   bottom: calc(3% + 10px);
 }
 

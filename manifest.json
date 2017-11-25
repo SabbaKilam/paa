@@ -1,0 +1,16 @@
+{
+  "short_name": "",
+  "name": "PIT Academic Assesment",
+  "icons": [
+    {
+      "src": "images/PitLogo192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],  
+  "display" : "standalone",
+  "start_url": "index.html?launcher=true;homescreen=1",
+  "theme_color": "#eee",
+  "background_color" : "#eee",
+  "orientation" : "portrait"
+}

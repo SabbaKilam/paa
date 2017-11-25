@@ -3,8 +3,11 @@
   <head>
     <title>PIT Assessment</title>
     <meta name="description" content="Abbas' MVC design pattern architecture">
-    <link id="favicon" rel="icon" href="/images/PitLogo.png" type="image/x-icon">
+    <link id="favicon" rel="icon" href="images/PitLogo192x192.png" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">    
     <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">    
+    <meta name="mobile-web-app-capable" content="yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -74,22 +77,22 @@
   <!------------------------------------------------------------------------------>
       <div id="foldersDegreePrograms" class="card">
         <div id="asProgramsRow1" class="degreeProgramsRow">
-          <div id="clickAlliedHealth" class="clickableFolder">Allied Health</div>
-          <div id="clickBehavioralHealth" class="clickableFolder">Behavioral Health</div>
-          <div id="clickBioMedEquip" class="clickableFolder">Bio-Medical Equipment</div>
-          <div id="clickBusinessManagement" class="clickableFolder">Business Management</div>
+          <div id="alliedhealth" class="clickableFolder" title="Allied Health">Allied Health</div>
+          <div id="behavioralhealth" class="clickableFolder" title="Behavioral Health">Behavioral Health</div>
+          <div id="biomedequip" class="clickableFolder" title="Bio-Medical Equipment">Bio-Medical Equipment</div>
+          <div id="businessmanagement" class="clickableFolder" title="Business Management">Business Mgmt</div>
         </div>
         <div id="asProgramsRow2" class="degreeProgramsRow">
-          <div id="clickComputerScience" class="clickableFolder">Computer Science</div>
-          <div id="clickCompSuppEngr" class="clickableFolder">Computer Support Engineering</div>
-          <div id="clickCriminalJustice" class="clickableFolder">Criminal Justice</div>
-          <div id="clickEngineering" class="clickableFolder">Engineering</div>
+          <div id="computerscience" class="clickableFolder" title="Computer Science">Computer Science</div>
+          <div id="compsuppengr" class="clickableFolder" title="Computer Support Engineering">Computer Support Engineering</div>
+          <div id="criminaljustice" class="clickableFolder" title="Criminal Justice">Criminal Justice</div>
+          <div id="engineering" class="clickableFolder" title="Engineering">Engineering</div>
         </div>
         <div id="asProgramsRow3" class="degreeProgramsRow">
-          <div id="clickGeneralStudies" class="clickableFolder">General Studies</div>
-          <div id="clickHealthCareMgmt" class="clickableFolder">Health Care Management</div>
-          <div id="clickHealthScience" class="clickableFolder">Health Science</div>
-          <div id="clickUnknown" class="clickableFolder">(..............)</div>
+          <div id="generalstudies" class="clickableFolder" title="General Studies">General Studies</div>
+          <div id="healthcaremgmt" class="clickableFolder" title="Health Care Management">Health Care Mgmt</div>
+          <div id="healthscience" class="clickableFolder" title="Health Science">Health Science</div>
+          <div id="miscellaneous" class="clickableFolder" title="Miscellaneous">(Misc.)</div>
         </div>        
       </div>
   <!------------------------------------------------------------------------------>       
@@ -112,7 +115,7 @@
     <div id="documentViewer">
         <iframe id="viewerFrame" frameborder="0" src="DocumentLoading.html"></iframe>
         <div id="viewingDocumentName"></div>
-        <div id="exitViewer">✗</div>        
+        <div id="exitViewer">➜</div>        
     </div>
     <!--=======================| END of DOCUMENT VIEWER |====================================-->      
     <footer id="info">

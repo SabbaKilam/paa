@@ -4,6 +4,21 @@
 /*global c*/
 
 //====================| HELPER methods |=========================//
+c.initializeBreadCrumbs = function(){
+  m.breadCrumbsArray.push({cardId: `home`, topicTitle: `Home`, topicId: ``})
+  m.breadCrumbsArray.push({cardId: `years`, topicTitle: `Academic Assessment Data`, topicId: `aad`})
+  m.breadCrumbsArray.push({cardId: `programs`, topicTitle: `2016-2107 Assessment Cycle`, topicId: `y1617`})
+  m.breadCrumbsArray.push({cardId: `degreePrograms`, topicTitle: `A.S. Degrees`, topicId: `as`})
+  
+  const folderName = m.breadCrumbsArray.reduce((result, crumb) => `${result}${crumb.topicId}`, '')
+
+  /*
+  const arrow = ` ➜ `
+  const trail = `${m.breadCrumbsArray[0].topicTitle}${arrow}${m.breadCrumbsArray[1].topicTitle}${arrow}${m.breadCrumbsArray[2].topicTitle}${arrow}${m.breadCrumbsArray[3].topicTitle}` 
+  alert(trail)
+  */
+}
+//-------------------------------------------------------//
 c.applyPermissionsToDocumentFolder = function(){
   const checker = new XMLHttpRequest()
   checker.open(`POST`, `php/getAccessLevel.php`)
@@ -38,7 +53,13 @@ c.displayDocument = function(){
   
   const url = `${m.baseUrl}${m.localUploadPath}${filename}`
   const ext = filename.slice(-3).toLowerCase()            
-  if(ext === 'mp3' || ext === 'jpg' || ext === 'gif' || ext === 'png'){
+  if( ext === 'mp3' ||
+      ext === 'jpg' ||
+      ext === 'gif' ||
+      ext === 'png' ||
+      ext === 'aac' ||
+      ext === 'mp4' ||
+      filename.slice(-4).toLowerCase() === 'jpeg' ){
     window.open(`${m.localUploadPath}${filename}`)
   }
   else{
@@ -74,7 +95,8 @@ c.allowFullAccess = function(){
   const btn = document.querySelector(`#btnDeleteFile`)
   const control = document.querySelector(`#fileControls`)
   
-  //show upload and delete
+  
+  //show upload and delete???
   file.style.visibility = `visible`
   btn.style.visibility = `visible`
   
@@ -160,8 +182,8 @@ c.updateLocalStorage = function(){
 //===============================
 c.validatePassword = function(){
   m.accessLevel === 'high' || m.accessLevel === 'low' ? c.bringDownWall() : false
-  if( m.accessLevel === 'low'){c.allowReadonlyAccess()}
-  if( m.accessLevel === 'high'){c.allowFullAccess()}
+  //if( m.accessLevel === 'low'){c.allowReadonlyAccess()}
+  //if( m.accessLevel === 'high'){c.allowFullAccess()}
 }
 
 c.bringDownWall = function(){
@@ -178,6 +200,7 @@ c.showAccessLevel = function(){
   getter.onload = ()=> alert(getter.response)
   getter.onerror = ()=> alert("Trouble connecting to server.")
 }
+//--------------------------------------------//
 
 c.makeTitleArc = function(string, target, angle = 5){
   // 0.) wipeout existing holder
@@ -295,6 +318,7 @@ c.clearUploadData = function(){
   v.spinner.styles(`visibility: hidden`)  
 }
 
+//-----------------------------------------------//
 c.showProgress = function(loaded, total, index){
   const numberOfFiles = v.fileElement.files.length
   if(numberOfFiles === 0){return}
@@ -312,7 +336,7 @@ c.showProgress = function(loaded, total, index){
   v.pctUpload.innerText = `${pct}%`
   v.bead.styles(`width: ${adjustedWidth}%`)
   
-  //determine which files still need to finish uploading:
+  //mark which files still need to finish uploading:
   m.fractionArray.forEach((fraction, index)=>{
     m.filesToUpload[index].done = (fraction === 1) ? true : false
   })
@@ -325,7 +349,7 @@ c.showProgress = function(loaded, total, index){
     setTimeout(function(){
       c.clearUploadData()
       c.getFileList()
-    }, 3000)
+    }, 2000)
   }        
 }
 
@@ -362,10 +386,10 @@ c.allowReadonlyAccess = function(){
 c.fillDocumentSelector = function (filesString){
     const currentFilename = v.documentSelector.options[v.documentSelector.selectedIndex] && v.documentSelector.options[v.documentSelector.selectedIndex].innerText
     v.documentSelector.innerHTML = ''
-    let filenameArray = filesString.split('\n')
+    const filenameArray = filesString.split('\n')
     filenameArray.pop() // get rid of the blank last entry
-    //sort the array by filename
-    filenameArray = L.sortByExtension(filenameArray)
+    //sort the array by filename extension (optional; can omit)
+    L.sortByExtension(filenameArray)
     filenameArray.forEach( filename =>{
         const option = document.createElement('option')
         option.innerText = filename

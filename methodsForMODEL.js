@@ -62,16 +62,73 @@ c.updateBasicStates = function(eventObject){
     return realArray.includes.call(fakeFolderArray, m.source) && m.clicked
   }
   
+  m.crumbClicked = crumbClicked()
+  //------| helper |--------//
+  function crumbClicked(){
+    const fakeFolderArray = document.getElementsByClassName('crumb')
+    const realArray = []
+    return realArray.includes.call(fakeFolderArray, m.source) && m.clicked
+  }
+  
+    
   //save the updated model in localStorage  
   c.updateLocalStorage()  
 }
 
-//=============| END of UPDATE BASIC STATES AND METAP_EVENTS |==========================//
+//=============| END of UPDATE BASIC STATES AND META-EVENTS |==========================//
+ 
+c.setCrumbClicked = function(){
+ const position = parseInt(m.id.slice(1), 10)
+ const maxIndex = m.breadCrumbsArray.length - 1
+ position === 0 ? c.goHome() : backtrack()
+ //----| helper |----//
+ function backtrack(){
+    if(position === maxIndex){
+        alert("You're already here.")
+    }
+    else{
+      //close the big folder
+      v.folderFront.styles('transform: rotateX(-30deg)')(`transition: all 1s ease`)
+      v.folderTitle.styles('transform: rotateX(-30deg)')
+      v.folderShadow.styles(`transition: all 1s ease`)(`transform: rotateX(-94deg)`)  
+      
+      const popCount = maxIndex - position
+      for(let i=0; i< popCount; i++){
+        m.breadCrumbsArray.pop()     
+      }
+      const cardId = m.breadCrumbsArray[m.breadCrumbsArray.length -1].cardId
+      c.showCard(v[cardId])
+      c.layBreadcrumbs()
+    }
+ }
+}
+
+//-------------------------------------//
 c.setFolderClicked = function(){
+  //the element's 'title' attribute has the folder's display title
+  m.folderTitle = m.source.title
+  
+  //push current card
+  m.breadCrumbsArray.push({cardId: `folderAssembly`, topicTitle: `${m.folderTitle}`, topicId: ``})
+
+  c.layBreadcrumbs()
+  
+  /*
+  const arrow = ` ➜ `
+  //set trail = `${m.breadCrumbsArray[0].topicTitle}${arrow}${m.breadCrumbsArray[1].topicTitle}${arrow}${m.breadCrumbsArray[2].topicTitle}${arrow}${m.breadCrumbsArray[3].topicTitle}` 
+  let trail = m.breadCrumbsArray.reduce( (result, crumb) => `${result}${arrow}${crumb.topicTitle}` , ``)
+  trail = trail.slice(3) //take off leading arrow and its spaces
+  v.testCrumb.innerText = trail
+   */
+  //combine topic ids to form the proper folder name. ex: aad + y1617 + as = aady1617as
   const folderName = m.breadCrumbsArray.reduce((result, crumb) => `${result}${crumb.topicId}`, '')
+  
+  //for filepath, combine the folder name with id of the currently clicked folder
   m.localUploadPath = `${folderName}/${m.id}/uploads/` 
   m.uploadPath =`../${folderName}/${m.id}/uploads/`
-  m.folderTitle = m.source.title
+
+  c.showBigFolder(true);
+  
 }
 
 //-----------------------------------------------//

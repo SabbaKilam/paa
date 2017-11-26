@@ -113,10 +113,9 @@ c.openFolder = function(){
 //----------------------------------------------------//
 c.closeFolder = function(){
   c.applyPermissionsToDocumentFolder()  
-  v.folderFront.styles('transform: rotateX(-30deg)')
+  v.folderFront.styles('transform: rotateX(-30deg)')(`transition: all 1s ease`)
   v.folderTitle.styles('transform: rotateX(-30deg)')
+  v.folderShadow.styles(`transition: all 1s ease`)(`transform: rotateX(-94deg)`)  
   v.uploadAssembly.styles(`transform: rotateX(-300deg)`)(`visibility: hidden`)(`transition: all 0s linear`)  
-  v.folderShadow.styles
-    (`transition: all 1s ease`)
-    (`transform: rotateX(-94deg)`)
+
 }

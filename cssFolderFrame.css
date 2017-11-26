@@ -65,6 +65,7 @@
   text-align: center;
   transition: all 1s ease;
   font-weight: bold;
+  text-shadow: 0 1px 0 white;
 }
 
 #uploadAssembly{
@@ -298,11 +299,11 @@ option{
 
 #viewerFrame{
   position: absolute;
-  height: 100%;
+  height: calc(97vh + 10px);/* 100vh - footer height*/
+  /*footer height: calc(3% + 10px);*/
   width: 100%;
   margin: auto;
   top:0;
-  bottom: 0;
   left: 0;
   right: 0;
   overflow: hidden;

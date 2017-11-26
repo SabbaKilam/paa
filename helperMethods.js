@@ -4,19 +4,163 @@
 /*global c*/
 
 //====================| HELPER methods |=========================//
+c.goBack = function(){
+    //close the big folder
+    v.folderFront.styles('transform: rotateX(-30deg)')(`transition: all 1s ease`)
+    v.folderTitle.styles('transform: rotateX(-30deg)')
+    v.folderShadow.styles(`transition: all 1s ease`)(`transform: rotateX(-94deg)`)
+    
+    //one card prior
+    m.breadCrumbsArray.pop()
+    const cardId = m.breadCrumbsArray[m.breadCrumbsArray.length -1].cardId
+    c.showCard(v[cardId])
+    c.layBreadcrumbs()    
+}
+//--------------------------------------------------------//
+c.layBreadcrumbs = function(){
+  const arrowIcon = ` ➜ `
+  v.crumbTrail.innerHTML = ``
+  const crumb = document.createElement('div')
+  crumb.setAttribute(`id`, `p0`)
+  crumb.classList.add('crumb')
+  const title = document.createTextNode(m.breadCrumbsArray[0].topicTitle)
+  crumb.appendChild(title)
+  v.crumbTrail.appendChild(crumb)
+
+  m.breadCrumbsArray.forEach( (crumbObject, i) => {
+    if(i !== 0){
+      //make a crumb and its text and put in its class
+      const crumb = document.createElement('div')
+      crumb.setAttribute(`id`, `p${i}`)
+      const title = document.createTextNode(crumbObject.topicTitle) 
+      crumb.classList.add(`crumb`)
+      
+      //make an arrow (span) and its text and put it in its class
+      const arrow = document.createElement('span')
+      const arrowhead = document.createTextNode(arrowIcon)
+      arrow.classList.add(`arrow`)
+      
+      //put the arrow icon in the arrow
+      arrow.appendChild(arrowhead)
+      
+      //put the arrow in the crumb
+      crumb.appendChild(arrow)
+      
+      //put the text in the crumb
+      crumb.appendChild(title)
+      
+      //put crumb on the trail
+      //v.crumbTrail.appendChild(crumb)
+      v.crumbTrail.appendChild(crumb)
+    }
+  })
+}
+
+
+//------------------------------------------//
+c.runGatekeeper = function(){
+  const checker = new XMLHttpRequest()
+  checker.open(`POST`, `php/setAccessLevel.php`)
+  checker.send();
+    //-----------------//
+  checker.onload = function(){
+    if(checker.response !== 'high' && checker.response !== 'low'){
+      v.passwordWall.style.visibility = 'visible'
+      v.shroud.style.visibility = `visible`
+      v.shroud.style.opacity = `1`
+    }
+    else if(checker.status === 200){
+      v.passwordWall.style.visibility = 'hidden'
+      v.shroud.style.visibility = `hidden`
+      v.shroud.style.opacity = `0`           
+    }
+ }//----| end of access level check |--------// 
+ checker.onerror = function(){
+    v.passwordWalll.style.visibility = 'visible'
+    v.shroud.style.visibility = `visible`
+    v.shroud.style.opacity = `1`         
+  } 
+}
+
+//------------------------------//
+c.goHome = function(){
+  c.hideAllCards()
+  v.breadCrumbsScreen.styles(`visibility: hidden`)  
+  //now show the home card
+}
+//----------------------------------------------------//
+c.showCard = function(cardObject){
+  c.hideAllCards()
+  
+  //now show cardObject
+  if(cardObject){
+    cardObject.styles(`visibility: visible`)
+  }
+}
+
+//------------------------------------------------------//
+c.hideAllCards = function(){
+  //hide all cards
+  const allCardsArray = document.querySelectorAll('.card')
+  const array = []
+  array.forEach.call( allCardsArray, m => {
+    v[m.id].styles(`visibility: hidden`)
+  } )
+  v.crumbTrail.innerHTML = ``
+  c.showBigFolder(false)
+
+}
+//-----------------------------------------------//
+c.showBigFolder = function(show = true){
+  let visible = `visible`
+  let time = 1
+  
+  show ? visible = `visible` : visible = `hidden`
+  show ? time = 0.5 : time = 0
+  
+  const shadowSpeed = time / 2
+  v.folderShadow.styles(`transition: all ${shadowSpeed}s linear`)(`visibility: ${visible}`)
+  v.folderFront.style.transition = `all ${time}s ease`
+  v.folderFront.styles(`visibility: ${visible}`)
+  v.folderTitle.styles(`transition: all ${time}s ease`)(`visibility: ${visible}`)
+  v.outerFileFrame.styles(`visibility: ${visible}`)
+  v.documentFrame.styles(`visibility: ${visible}`)
+  v.fileControls.styles(`visibility: ${visible}`)
+  v.fileFrame.styles(`visibility: ${visible}`)
+  
+  v.fileBackground.styles(`visibility: ${visible}`) 
+  v.fileElement.styles(`visibility: ${visible}`)    
+  
+  if(!show){
+    v.uploadAssembly.styles(`visibility: ${visible}`) 
+    v.btnDeleteFile.styles(`visibility: ${visible}`) 
+  
+  }
+}
+
+//-----------------------------------------------//
+c.toggleUploadButton = function(){
+  clearTimeout(m.timerUploadButton)
+  v.fileBackground.styles
+    (`background-image: linear-gradient(blue, lightblue)`)
+    (`box-shadow: inset 1px 1px 2px black`)
+    (`font-size: 0.99rem`)
+  m.timerUploadButton = setTimeout(function(){
+    v.fileBackground.styles
+      (`background-image: linear-gradient(lightblue, blue)`)
+      (`box-shadow: 1px 1px 2px black`)
+      (`font-size: 1rem`)    
+  }, 250)
+}
+
+//-------------------------------------------------//
 c.initializeBreadCrumbs = function(){
   m.breadCrumbsArray.push({cardId: `home`, topicTitle: `Home`, topicId: ``})
   m.breadCrumbsArray.push({cardId: `years`, topicTitle: `Academic Assessment Data`, topicId: `aad`})
   m.breadCrumbsArray.push({cardId: `programs`, topicTitle: `2016-2107 Assessment Cycle`, topicId: `y1617`})
-  m.breadCrumbsArray.push({cardId: `degreePrograms`, topicTitle: `A.S. Degrees`, topicId: `as`})
+  m.breadCrumbsArray.push({cardId: `foldersDegreePrograms`, topicTitle: `A.S. Degrees`, topicId: `as`})
   
-  const folderName = m.breadCrumbsArray.reduce((result, crumb) => `${result}${crumb.topicId}`, '')
-
-  /*
-  const arrow = ` ➜ `
-  const trail = `${m.breadCrumbsArray[0].topicTitle}${arrow}${m.breadCrumbsArray[1].topicTitle}${arrow}${m.breadCrumbsArray[2].topicTitle}${arrow}${m.breadCrumbsArray[3].topicTitle}` 
-  alert(trail)
-  */
+  c.layBreadcrumbs()
 }
 //-------------------------------------------------------//
 c.applyPermissionsToDocumentFolder = function(){
@@ -39,6 +183,33 @@ c.applyPermissionsToDocumentFolder = function(){
 }
 //-------------------------------------------------------//
 
+c.allowReadonlyAccess = function(){
+  v.fileFrame.styles(`visibility: hidden`)
+  v.fileElement.styles(`visibility: hidden`)
+  v.fileBackground.styles(`visibility: hidden`)
+  v.btnDeleteFile.styles(`visibility: hidden`)
+  
+  //move select window up into a the space
+  v.documentFrame.styles(`bottom: 30%`)
+  v.outerFileFrame.styles(`height: 65%`)
+  v.outerFileFrame.styles(`top: 54%`)  
+}
+//-----------------------------------------------//
+c.allowFullAccess = function(){
+  //show upload and delete???
+  v.fileFrame.style.visibility = `visible`
+  v.fileElement.styles(`visibility: visible`)
+  v.fileBackground.styles(`visibility: visible`)  
+  v.btnDeleteFile.style.visibility = `visible`
+  
+  //restore select window
+  v.documentFrame.style.bottom = `20%`
+  v.fileControls.style.top = `70%`
+  v.outerFileFrame.style.height = `100%`
+  v.outerFileFrame.style.top = `35%`
+}
+
+//-------------------------------------------------//
 c.hideDocumentViewer = function(){
   v.documentViewer.style.visibility = 'hidden' 
   v.viewerFrame.src = 'DocumentLoading.html'
@@ -69,43 +240,6 @@ c.displayDocument = function(){
   }
 }
 c.showDocument = c.displayDocument
-//-------------------------------------------------//
-c.allowReadonlyAccess = function(){
-  const file = document.querySelector(`#fileFrame`)
-  const doc = document.querySelector(`#documentFrame`)
-  const outer = document.querySelector(`#outerFileFrame`)
-  const btn = document.querySelector(`btnDeleteFile#`)
-  const control = document.querySelector(`#fileControls`)
-  
-  //hide upload and delete
-  file.style.visibility = `hidden`
-  btn.style.visibility = `hidden`
-  
-  //move select window up into a the space
-  doc.style.bottom = `30%`
-  control.style.top = `10%`
-  outer.style.height = `65%`
-  outer.style.top = `54%`  
-}
-//-----------------------------------------------//
-c.allowFullAccess = function(){
-  const file = document.querySelector(`#fileFrame`)
-  const doc = document.querySelector(`#documentFrame`)
-  const outer = document.querySelector(`#outerFileFrame`)
-  const btn = document.querySelector(`#btnDeleteFile`)
-  const control = document.querySelector(`#fileControls`)
-  
-  
-  //show upload and delete???
-  file.style.visibility = `visible`
-  btn.style.visibility = `visible`
-  
-  //restore select window
-  doc.style.bottom = `20%`
-  control.style.top = `70%`
-  outer.style.height = `100%`
-  outer.style.top = `35%`
-}
 
 //-----------------------------------------------//
 c.noWiggle = function(){
@@ -182,8 +316,7 @@ c.updateLocalStorage = function(){
 //===============================
 c.validatePassword = function(){
   m.accessLevel === 'high' || m.accessLevel === 'low' ? c.bringDownWall() : false
-  //if( m.accessLevel === 'low'){c.allowReadonlyAccess()}
-  //if( m.accessLevel === 'high'){c.allowFullAccess()}
+
 }
 
 c.bringDownWall = function(){
@@ -285,7 +418,6 @@ c.adjustAccess = function(){
       
       //move select window up into a the space
       v.documentFrame.styles(`bottom: 30%`)
-      //v.fileControls.styles(`top: 10%`)
       v.outerFileFrame.styles(`height: 65%`)
       v.outerFileFrame.styles(`top: 54%`)
     }
@@ -370,18 +502,7 @@ c.getFileList = function (){
     }
 }
 
-//=====================================================================//
-c.allowReadonlyAccess = function(){
-  //hide upload and delete
-  v.fileFrame.styles(`visibility: hidden`)
-  v.btnDeleteFile.styles(`visibility: hidden`)
-  
-  //move select window up into a the space
-  v.documentFrame.styles(`bottom: 30%`)
-  //v.fileControls.styles(`top: 10%`)
-  v.outerFileFrame.styles(`height: 65%`)
-  v.outerFileFrame.styles(`top: 54%`)  
-}
+
 //======================================================================//
 c.fillDocumentSelector = function (filesString){
     const currentFilename = v.documentSelector.options[v.documentSelector.selectedIndex] && v.documentSelector.options[v.documentSelector.selectedIndex].innerText
@@ -408,7 +529,7 @@ c.deleteFile = function(){
   xhr.onload = function(){
     if(xhr.status === 200 && xhr.response !== `high`){
       const message = 
-      `You currently don't have permission to upload.
+      `You currently don't have permission to delete files.
        Try logging out and logging in again.`
       alert(message)
       c.logOut()

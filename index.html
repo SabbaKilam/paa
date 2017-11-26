@@ -13,8 +13,9 @@
 
     <link rel="stylesheet" href="cssStyles.css">
     <link rel="stylesheet" href="cssFolderFrame.css">
-    <script src="prefixfree.js"></script>
+    <link rel="stylesheet" href="cssBreadcrumbsScreen.css">
     
+    <script src="prefixfree.js"></script>
     <script src="L.js"></script>
     <script src="MVC.js"></script>    
     <script src="methodsForMODEL.js"></script>
@@ -27,7 +28,18 @@
     <header id="header">
       <img id="pitLogo" src="images/PitLogoTowerBlueTransparent.png" alt="PIT Logo">
     </header>
-    <main>
+    <main id="main">
+    <!--============================| BREADCRUMB SCREEN |====================================-->
+      <div id="breadCrumbsScreen">
+        <div id="btnHome"></div>
+        <div id="crumbTrail">
+          <div id="testCrumb" class="crumb"></div>
+          <div id="testCrumb2" class="crumb">.... foobar duh</div>
+        </div>
+        <div id="btnBack"></div>
+      </div>
+    <!--============================| END of BREADCRUMB SCREEN |====================================-->
+    
     <!--============================| CARD ASSEMBLIES and FRAMES |===========================-->
      <div id="folderAssembly" class="card">
       <div id="folderFrame">
@@ -128,39 +140,6 @@
     </div>    
     
     <!----| NO HTML BELOW THIS LINE  |---->
-    <!--==========| "reloading the page" gatekeeper code goes here|==============-->
-    <script>
-      /*global L*/
-      /*global m*/
-      /*global v*/
-      /*global c*/
-      
-      const wall = document.querySelector(`#passwordWall`)
-      const cover = document.querySelector(`#shroud`)
-      const checker = new XMLHttpRequest()
-      checker.open(`POST`, `php/setAccessLevel.php`)
-      checker.send();
-      //-----------------//
-      checker.onload = function(){
-        if(checker.response !== 'high' && checker.response !== 'low'){
-          wall.style.visibility = 'visible'
-          cover.style.visibility = `visible`
-          cover.style.opacity = `1`
-        }
-        else if(checker.status === 200){
-          wall.style.visibility = 'hidden'
-          cover.style.visibility = `hidden`
-          cover.style.opacity = `0`           
-        }
-
-       }//----| end of access level check |--------//
-       checker.onerror = function(){
-          wall.style.visibility = 'visible'
-          cover.style.visibility = `visible`
-          cover.style.opacity = `1`         
-        }
-    </script>
-    <!--====================================================-->      
     <!----| Let's get this party started: |---->
     <script>
       /*global c*/

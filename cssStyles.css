@@ -137,10 +137,11 @@ footer{
   font-size: calc(1vw + 11px);
   line-height: 0.5;
   background-color: #ccc;  
-  background-image: url(https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2Flogout.png?1508023974770), url(https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2FSmallHome.png?1508008255153),url(https://cdn.glitch.com/9209331d-f80e-4e16-ac3a-e13d8e3c8d85%2FBlueEnvelope.png?1508006339652);
+  background-image: url(images/logout.png?), url(images/SmallHome.png),url(images/BlueEnvelope.png);
   background-repeat: no-repeat;
   background-position: 15%, 50% ,85%;
   background-size: contain;
+  z-index: 5;
 }
 
 .footerGlassHolder{
@@ -148,6 +149,7 @@ footer{
   width: 100%;
   height: calc(3% + 10px);
   bottom: 0;
+  z-index: 10;  
 }
 
 .footerGlass{

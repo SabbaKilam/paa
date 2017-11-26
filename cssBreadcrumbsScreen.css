@@ -1,0 +1,93 @@
+#breadCrumbsScreen{
+    position: fixed;
+    margin: auto;
+    overflow: hidden;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(-20deg, hsla(210, 65%, 40%, 0.75), white, hsla(210, 65%, 40%, 0.75) ); 
+    z-index: 0;
+}
+
+#btnHome{
+    position: absolute;
+    background-image: url(images/SmallHome.png);
+    background-color: #ccc;      
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 2.35rem;
+    width: 2.35rem;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 0.25rem lightgray;
+}
+#btnHome:hover, #btnHome:active{
+    box-shadow: 0 0 0.35rem red;
+    background-color: white;
+}
+
+#btnBack{
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-image: url(images/LeftArrow.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 49%;
+    box-shadow: 0 0 0.25rem lightgray;    
+    cursor: pointer;
+}
+
+#btnBack:hover {
+    box-shadow: 0 0 0.35rem red;    
+}
+
+#crumbTrail{
+    position: absolute;
+    margin: auto;
+    width: calc(100vw - 6.5rem);
+    /*border: 1px solid black;*/
+    top: 0.25rem;
+    left: 0;
+    right: 0;
+    padding: 0.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: calc(0.75vw + 4px);
+    text-align: center;
+    background: rgb(210, 210, 210);    
+    background: rgba(200, 200, 200, 0.4);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.1rem 0.6rem gray;
+}
+.crumb{
+    display: inline-block;
+    color: yellow;
+    text-shadow: 0 1px 0 black;    
+    font-size: calc(0.75vw + 8px);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-left: 3px;
+}
+
+.crumb:hover{
+    color: white;
+    text-shadow: 0 1px 0 black;
+    font-size: calc(calc(0.75vw + 8px) * 1.01); 
+    cursor: pointer;
+}
+.crumb:active{
+    color: teal;
+    text-shadow: 0 1px 0 white;    
+}
+
+.arrow{
+    color: #333;
+    text-shadow: 0 1px 0 #eee;
+}
+

@@ -40,6 +40,7 @@ m.debounceTimeMax = 750 // milliseconds
 m.modelMethodQualifiers = {}
 
 //=================| Specialized States (these vary per application) |=================//
+m.timerUploadButton = 0
 m.isPortrait = window.innerHeight >= window.innerWidth
 m.currentAngle = -45
 m.titleCharacters = 'PIT Academic Assessment'
@@ -49,6 +50,7 @@ m.innerWidth = window.innerWidth;
 //---------------------//
 m.baseUrl = `https://academic-assessment-sabbakilam1.c9users.io/`
 m.folderClicked = false
+m.crumbClicked = false
 m.averageUploadFraction = 0
 m.fractionArray = []
 m.filesToUpload = []
@@ -81,6 +83,10 @@ c.updateModel = function(eventObject){
     displayDocument:        [m.source === v.btnDisplayDocument, m.clicked],
     showDocument:           [m.source === v.documentSelector, m.type === 'change'],//same as above
     setFolderClicked:       [m.folderClicked],
+    setCrumbClicked:        [m.crumbClicked],
+    toggleUploadButton:     [m.source === v.fileElement, m.type === 'mousedown' || m.type === 'touchstart'],
+    goHome:                 [m.source === v.btnHome, m.clicked],
+    goBack:                 [m.source === v.btnBack, m.clicked],
   }
   L.runQualifiedMethods(m.modelMethodQualifiers, c, c.updateView)
 }
@@ -101,11 +107,16 @@ c.initialize = function(eventObject){
   
   //attach "id"-ed elements to our view object (after giving window its own id)
   window.id = 'window'
+  window.document.id = 'document'
   L.attachAllElementsById(v)
   
   //c.restorePriorModel(eventObject)
   c.makeTitleArc(m.titleCharacters, v.fanHolder, 1.5)
   v.txtPassword.focus();
+  
+  
+  //run gatekeeper moved from index.html
+  c.runGatekeeper()
   
   //restrict document folder to proper permissions
   //c.applyPermissionsToDocumentFolder()
